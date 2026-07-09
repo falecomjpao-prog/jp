@@ -27,56 +27,39 @@ const LEVELS = {
 const COMMON_FIELDS = ['spend', 'impressions', 'reach', 'frequency', 'cpm', 'actions', 'unique_actions', 'cost_per_action_type'];
 
 const METRIC_HEADERS = [
-  'Orçamento', 'Resultado', 'Custo por Resultado', 'Initiate Checkout', 'Custo por Initiate Checkout',
+  'Orçamento', 'Compra', 'Custo por Compra', 'Lead', 'Custo por Lead', 'Initiate Checkout', 'Custo por Initiate Checkout',
   'Unique CTR (Link)', 'Landing Page Views', 'Custo por Landing Page View', 'CPM', 'Frequency',
   'Reach', 'Impressions', 'Custo por Unique Link Click', 'Unique Link Clicks', 'LPV Rate por Link Clicks (%)',
 ];
 
-// Mapeamento de objetivo da campanha -> tipo de ação que conta como "resultado"
-const OBJECTIVE_RESULT_MAP = {
-  OUTCOME_SALES: ['purchase'],
-  OUTCOME_LEADS: ['lead'],
-  OUTCOME_ENGAGEMENT: ['post_engagement'],
-  OUTCOME_TRAFFIC: ['link_click'],
-  OUTCOME_APP_PROMOTION: ['app_install', 'mobile_app_install'],
-  OUTCOME_AWARENESS: null,
-  CONVERSIONS: ['purchase'],
-  LEAD_GENERATION: ['lead'],
-  LINK_CLICKS: ['link_click'],
-  APP_INSTALLS: ['app_install', 'mobile_app_install'],
-  POST_ENGAGEMENT: ['post_engagement'],
-  MESSAGES: ['onsite_conversion.messaging_conversation_started_7d'],
-  VIDEO_VIEWS: ['video_view'],
-  REACH: null,
-  BRAND_AWARENESS: null,
+// Para cada métrica de conversão, os tipos de ação do Meta que podem representá-la,
+// em ordem de prioridade — usamos só o primeiro que existir na linha, nunca somamos
+// vários ao mesmo tempo (tipos diferentes às vezes contam o mesmo evento duas vezes).
+const ACTION_TYPE_PRIORITY = {
+  purchase: ['omni_purchase', 'purchase', 'offsite_conversion.fb_pixel_purchase', 'onsite_conversion.purchase'],
+  lead: ['onsite_conversion.lead_grouped', 'omni_lead', 'lead', 'offsite_conversion.fb_pixel_lead'],
+  initiate_checkout: ['omni_initiated_checkout', 'initiate_checkout', 'offsite_conversion.fb_pixel_initiate_checkout', 'onsite_conversion.initiate_checkout'],
 };
 
-// Mapeamento do evento de conversão configurado no conjunto de anúncios -> tipo de ação
-const CUSTOM_EVENT_RESULT_MAP = {
-  PURCHASE: ['purchase'],
-  LEAD: ['lead'],
-  COMPLETE_REGISTRATION: ['complete_registration'],
-  INITIATE_CHECKOUT: ['initiate_checkout', 'initiated_checkout'],
-  ADD_TO_CART: ['add_to_cart'],
-  SUBSCRIBE: ['subscribe'],
-  CONTACT: ['contact'],
-};
+function actionValue_(actionsArray, metricKey) {
+  if (!actionsArray) return 0;
+  const priority = ACTION_TYPE_PRIORITY[metricKey];
+  for (const type of priority) {
+    const found = actionsArray.find((a) => a.action_type === type);
+    if (found) return parseFloat(found.value || 0);
+  }
+  return 0;
+}
 
-// Mapeamento da meta de otimização do conjunto de anúncios -> tipo de ação
-const OPTIMIZATION_GOAL_RESULT_MAP = {
-  LEAD_GENERATION: ['lead'],
-  OFFSITE_CONVERSIONS: ['purchase'],
-  ONSITE_CONVERSIONS: ['purchase'],
-  LINK_CLICKS: ['link_click'],
-  LANDING_PAGE_VIEWS: ['landing_page_view'],
-  POST_ENGAGEMENT: ['post_engagement'],
-  THRUPLAY: ['video_view'],
-  REPLIES: ['onsite_conversion.messaging_conversation_started_7d'],
-  CONVERSATIONS: ['onsite_conversion.messaging_conversation_started_7d'],
-  APP_INSTALLS: ['app_install', 'mobile_app_install'],
-  REACH: null,
-  IMPRESSIONS: null,
-};
+function costValue_(costArray, metricKey) {
+  if (!costArray) return null;
+  const priority = ACTION_TYPE_PRIORITY[metricKey];
+  for (const type of priority) {
+    const found = costArray.find((c) => c.action_type === type);
+    if (found) return parseFloat(found.value);
+  }
+  return null;
+}
 
 function onOpen() {
   SpreadsheetApp.getUi()
@@ -124,24 +107,22 @@ function fetchAllPaginated_(url) {
 }
 
 function getCampaignsMeta_(token) {
-  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/campaigns?fields=id,objective,daily_budget,lifetime_budget,effective_status&limit=500&access_token=${token}`;
+  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/campaigns?fields=id,daily_budget,lifetime_budget,effective_status&limit=500&access_token=${token}`;
   const rows = fetchAllPaginated_(url);
   const map = {};
   rows.forEach((c) => {
-    map[c.id] = { objective: c.objective, dailyBudget: c.daily_budget, lifetimeBudget: c.lifetime_budget, status: c.effective_status };
+    map[c.id] = { dailyBudget: c.daily_budget, lifetimeBudget: c.lifetime_budget, status: c.effective_status };
   });
   return map;
 }
 
 function getAdSetsMeta_(token) {
-  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/adsets?fields=id,campaign_id,optimization_goal,daily_budget,lifetime_budget,promoted_object,effective_status&limit=500&access_token=${token}`;
+  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/adsets?fields=id,campaign_id,daily_budget,lifetime_budget,effective_status&limit=500&access_token=${token}`;
   const rows = fetchAllPaginated_(url);
   const map = {};
   rows.forEach((a) => {
     map[a.id] = {
       campaignId: a.campaign_id,
-      optimizationGoal: a.optimization_goal,
-      customEventType: a.promoted_object && a.promoted_object.custom_event_type,
       dailyBudget: a.daily_budget,
       lifetimeBudget: a.lifetime_budget,
       status: a.effective_status,
@@ -213,24 +194,6 @@ function formatBudget_(meta) {
   return '';
 }
 
-function resultKeywordFromAdset_(adsetMeta) {
-  if (!adsetMeta) return null;
-  if (adsetMeta.customEventType && CUSTOM_EVENT_RESULT_MAP[adsetMeta.customEventType]) {
-    return CUSTOM_EVENT_RESULT_MAP[adsetMeta.customEventType];
-  }
-  if (adsetMeta.optimizationGoal && OPTIMIZATION_GOAL_RESULT_MAP.hasOwnProperty(adsetMeta.optimizationGoal)) {
-    return OPTIMIZATION_GOAL_RESULT_MAP[adsetMeta.optimizationGoal];
-  }
-  return null;
-}
-
-function resultKeywordFromObjective_(objective) {
-  if (objective && OBJECTIVE_RESULT_MAP.hasOwnProperty(objective)) {
-    return OBJECTIVE_RESULT_MAP[objective];
-  }
-  return null;
-}
-
 function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta) {
   const actions = raw.actions || [];
   const uniqueActions = raw.unique_actions || [];
@@ -240,10 +203,15 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta) {
 
   const linkClicks = sumByKeyword_(uniqueActions, ['link_click']);
   const landingPageViews = sumByKeyword_(actions, ['landing_page_view']);
-  const initiateCheckout = sumByKeyword_(actions, ['initiate_checkout', 'initiated_checkout']);
+
+  const purchases = actionValue_(actions, 'purchase');
+  const custoPorCompra = costValue_(costPerAction, 'purchase') || safeDiv_(spend, purchases);
+  const leads = actionValue_(actions, 'lead');
+  const custoPorLead = costValue_(costPerAction, 'lead') || safeDiv_(spend, leads);
+  const initiateCheckout = actionValue_(actions, 'initiate_checkout');
+  const custoPorInitiate = costValue_(costPerAction, 'initiate_checkout') || safeDiv_(spend, initiateCheckout);
 
   const custoPorLPV = costByKeyword_(costPerAction, ['landing_page_view']) || safeDiv_(spend, landingPageViews);
-  const custoPorInitiate = costByKeyword_(costPerAction, ['initiate_checkout', 'initiated_checkout']) || safeDiv_(spend, initiateCheckout);
   const custoPorLinkClickUnico = safeDiv_(spend, linkClicks);
   const uniqueLinkCtr = reach > 0 ? round2_((linkClicks / reach) * 100) : 0;
   const lpvRate = linkClicks > 0 ? round2_((landingPageViews / linkClicks) * 100) : 0;
@@ -251,17 +219,14 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta) {
   const campaignMeta = campaignsMeta[raw.campaign_id];
   let adsetMeta = null;
   let adMeta = null;
-  let resultKeyword = null;
   let budget = '';
   let status = '';
 
   if (levelKey === 'campaign') {
-    resultKeyword = resultKeywordFromObjective_(campaignMeta && campaignMeta.objective);
     budget = formatBudget_(campaignMeta);
     status = (campaignMeta && campaignMeta.status) || '';
   } else {
     adsetMeta = adsetsMeta[raw.adset_id];
-    resultKeyword = resultKeywordFromAdset_(adsetMeta) || resultKeywordFromObjective_(campaignMeta && campaignMeta.objective);
     budget = formatBudget_(adsetMeta) || formatBudget_(campaignMeta);
     status = (adsetMeta && adsetMeta.status) || '';
   }
@@ -271,11 +236,6 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta) {
     status = (adMeta && adMeta.status) || status;
   }
 
-  const resultCount = resultKeyword ? sumByKeyword_(actions, resultKeyword) : '';
-  const custoPorResultado = (resultKeyword && resultCount > 0)
-    ? (costByKeyword_(costPerAction, resultKeyword) || safeDiv_(spend, resultCount))
-    : '';
-
   const nameCols = LEVELS[levelKey].nameHeaders.map((_, i) => {
     if (i === 0) return raw.campaign_name;
     if (i === 1) return raw.adset_name;
@@ -284,8 +244,10 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta) {
 
   const row = [raw.date_start].concat(nameCols).concat([status]).concat([
     budget,
-    resultCount,
-    round2_(custoPorResultado),
+    purchases,
+    round2_(custoPorCompra),
+    leads,
+    round2_(custoPorLead),
     initiateCheckout,
     round2_(custoPorInitiate),
     uniqueLinkCtr + '%',

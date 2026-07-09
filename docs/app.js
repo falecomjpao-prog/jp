@@ -87,22 +87,26 @@ function groupBy(rows, keyFn) {
 
 function aggregate(rows) {
   const s = {
-    resultado: 0, resultadoCost: 0,
+    compra: 0, compraCost: 0,
+    lead: 0, leadCost: 0,
     initiate: 0, initiateCost: 0,
     lpv: 0, lpvCost: 0,
     reach: 0, impressions: 0, cpmWeighted: 0,
     ulc: 0, ulcCost: 0,
   };
   rows.forEach((r) => {
-    const resultado = num(r['Resultado']);
+    const compra = num(r['Compra']);
+    const lead = num(r['Lead']);
     const initiate = num(r['Initiate Checkout']);
     const lpv = num(r['Landing Page Views']);
     const impressions = num(r['Impressions']);
     const reach = num(r['Reach']);
     const ulc = num(r['Unique Link Clicks']);
 
-    s.resultado += resultado;
-    s.resultadoCost += num(r['Custo por Resultado']) * resultado;
+    s.compra += compra;
+    s.compraCost += num(r['Custo por Compra']) * compra;
+    s.lead += lead;
+    s.leadCost += num(r['Custo por Lead']) * lead;
     s.initiate += initiate;
     s.initiateCost += num(r['Custo por Initiate Checkout']) * initiate;
     s.lpv += lpv;
@@ -115,8 +119,10 @@ function aggregate(rows) {
   });
 
   return {
-    resultado: s.resultado,
-    custoPorResultado: s.resultado > 0 ? s.resultadoCost / s.resultado : 0,
+    compra: s.compra,
+    custoPorCompra: s.compra > 0 ? s.compraCost / s.compra : 0,
+    lead: s.lead,
+    custoPorLead: s.lead > 0 ? s.leadCost / s.lead : 0,
     initiate: s.initiate,
     custoPorInitiate: s.initiate > 0 ? s.initiateCost / s.initiate : 0,
     lpv: s.lpv,
@@ -181,8 +187,10 @@ function lineChart(canvasId, labels, values, colorVar, valueFormatter) {
 
 function renderKpis(agg) {
   const items = [
-    ['Resultado', fmtInt(agg.resultado)],
-    ['Custo por Resultado', fmtMoney(agg.custoPorResultado)],
+    ['Compra', fmtInt(agg.compra)],
+    ['Custo por Compra', fmtMoney(agg.custoPorCompra)],
+    ['Lead', fmtInt(agg.lead)],
+    ['Custo por Lead', fmtMoney(agg.custoPorLead)],
     ['Initiate Checkout', fmtInt(agg.initiate)],
     ['Custo por Initiate Checkout', fmtMoney(agg.custoPorInitiate)],
     ['Landing Page Views', fmtInt(agg.lpv)],
@@ -221,18 +229,20 @@ function renderTable(level, rows) {
       agg,
     };
   });
-  entries.sort((a, b) => b.agg.resultado - a.agg.resultado);
+  entries.sort((a, b) => b.agg.compra - a.agg.compra);
 
   const extraHead = isAd ? '<th>Anúncio</th>' : '';
-  const thead = `<tr>${extraHead}${nameCols.map((c) => `<th>${c}</th>`).join('')}<th>Status</th><th>Orçamento</th><th>Resultado</th><th>Custo/Resultado</th><th>CPM</th><th>Reach</th><th>Impressions</th></tr>`;
+  const thead = `<tr>${extraHead}${nameCols.map((c) => `<th>${c}</th>`).join('')}<th>Status</th><th>Orçamento</th><th>Compra</th><th>Custo/Compra</th><th>Lead</th><th>Custo/Lead</th><th>CPM</th><th>Reach</th><th>Impressions</th></tr>`;
   const tbody = entries.map((e) => `
     <tr>
       ${isAd ? `<td>${e.thumbnail ? `<img class="thumb" src="${e.thumbnail}" alt="">` : ''}${e.instagramUrl ? `<a href="${e.instagramUrl}" target="_blank" rel="noopener">Ver no Instagram</a>` : ''}</td>` : ''}
       ${e.names.map((n) => `<td>${n || '—'}</td>`).join('')}
       <td>${statusBadge(e.status)}</td>
       <td>${e.budget}</td>
-      <td class="num">${fmtInt(e.agg.resultado)}</td>
-      <td class="num">${fmtMoney(e.agg.custoPorResultado)}</td>
+      <td class="num">${fmtInt(e.agg.compra)}</td>
+      <td class="num">${fmtMoney(e.agg.custoPorCompra)}</td>
+      <td class="num">${fmtInt(e.agg.lead)}</td>
+      <td class="num">${fmtMoney(e.agg.custoPorLead)}</td>
       <td class="num">${fmtMoney(e.agg.cpm)}</td>
       <td class="num">${fmtInt(e.agg.reach)}</td>
       <td class="num">${fmtInt(e.agg.impressions)}</td>
@@ -247,8 +257,8 @@ function renderCharts(rows) {
   const dates = Array.from(byDate.keys()).sort();
   const perDate = dates.map((d) => aggregate(byDate.get(d)));
 
-  lineChart('chart-resultado', dates, perDate.map((a) => a.resultado), '--series-1', fmtInt);
-  lineChart('chart-custo-resultado', dates, perDate.map((a) => a.custoPorResultado), '--series-2', fmtMoney);
+  lineChart('chart-compra', dates, perDate.map((a) => a.compra), '--series-1', fmtInt);
+  lineChart('chart-lead', dates, perDate.map((a) => a.lead), '--series-2', fmtInt);
   lineChart('chart-cpm', dates, perDate.map((a) => a.cpm), '--series-3', fmtMoney);
 }
 
@@ -276,7 +286,7 @@ function renderLevel(levelKey) {
   if (rows.length === 0) {
     document.getElementById('kpi-grid').innerHTML = '';
     document.getElementById('table-wrap').innerHTML = '';
-    ['chart-resultado', 'chart-custo-resultado', 'chart-cpm'].forEach(destroyChart);
+    ['chart-compra', 'chart-lead', 'chart-cpm'].forEach(destroyChart);
     return;
   }
 
