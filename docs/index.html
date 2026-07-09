@@ -76,7 +76,35 @@
     border-bottom-color: var(--series-1);
     font-weight: 600;
   }
-  main { padding: 24px 32px 48px; }
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 32px;
+    flex-wrap: wrap;
+  }
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  #filter-search {
+    flex: 1;
+    min-width: 220px;
+    max-width: 360px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface-1);
+    color: var(--text-primary);
+    font-size: 14px;
+  }
+  #filter-summary { font-size: 13px; color: var(--muted); }
+  main { padding: 0 32px 48px; }
   #kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -125,6 +153,12 @@
   td { border-bottom: 1px solid var(--gridline); }
   td.num { font-variant-numeric: tabular-nums; text-align: right; }
   th:has(+ th.num), th.num { text-align: right; }
+  .badge { font-size: 12px; white-space: nowrap; }
+  .badge-good { color: #0ca30c; }
+  .badge-muted { color: var(--muted); }
+  .thumb { width: 32px; height: 32px; object-fit: cover; border-radius: 4px; vertical-align: middle; margin-right: 6px; }
+  #table-wrap a { color: var(--series-1); text-decoration: none; font-size: 13px; }
+  #table-wrap a:hover { text-decoration: underline; }
   #empty-state, #error-state {
     display: none;
     background: var(--surface-1);
@@ -151,6 +185,15 @@
   <div class="tab" data-level="adset">Conjuntos de Anúncio</div>
   <div class="tab" data-level="ad">Anúncios</div>
 </nav>
+
+<div class="filter-bar">
+  <label class="filter-checkbox">
+    <input type="checkbox" id="filter-active">
+    Somente ativos agora
+  </label>
+  <input type="text" id="filter-search" placeholder="Buscar por nome (ex: AD01, Leads, Vendas)…">
+  <span id="filter-summary"></span>
+</div>
 
 <main>
   <div id="empty-state">Nenhum dado encontrado nesta aba ainda. Rode "Atualizar Dados Agora" no menu Meta Ads da planilha.</div>

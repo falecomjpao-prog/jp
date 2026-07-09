@@ -124,17 +124,17 @@ function fetchAllPaginated_(url) {
 }
 
 function getCampaignsMeta_(token) {
-  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/campaigns?fields=id,objective,daily_budget,lifetime_budget&limit=500&access_token=${token}`;
+  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/campaigns?fields=id,objective,daily_budget,lifetime_budget,effective_status&limit=500&access_token=${token}`;
   const rows = fetchAllPaginated_(url);
   const map = {};
   rows.forEach((c) => {
-    map[c.id] = { objective: c.objective, dailyBudget: c.daily_budget, lifetimeBudget: c.lifetime_budget };
+    map[c.id] = { objective: c.objective, dailyBudget: c.daily_budget, lifetimeBudget: c.lifetime_budget, status: c.effective_status };
   });
   return map;
 }
 
 function getAdSetsMeta_(token) {
-  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/adsets?fields=id,campaign_id,optimization_goal,daily_budget,lifetime_budget,promoted_object&limit=500&access_token=${token}`;
+  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/adsets?fields=id,campaign_id,optimization_goal,daily_budget,lifetime_budget,promoted_object,effective_status&limit=500&access_token=${token}`;
   const rows = fetchAllPaginated_(url);
   const map = {};
   rows.forEach((a) => {
@@ -144,6 +144,21 @@ function getAdSetsMeta_(token) {
       customEventType: a.promoted_object && a.promoted_object.custom_event_type,
       dailyBudget: a.daily_budget,
       lifetimeBudget: a.lifetime_budget,
+      status: a.effective_status,
+    };
+  });
+  return map;
+}
+
+function getAdsMeta_(token) {
+  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/ads?fields=id,effective_status,creative{thumbnail_url,instagram_permalink_url}&limit=500&access_token=${token}`;
+  const rows = fetchAllPaginated_(url);
+  const map = {};
+  rows.forEach((a) => {
+    map[a.id] = {
+      status: a.effective_status,
+      instagramUrl: a.creative && a.creative.instagram_permalink_url,
+      thumbnailUrl: a.creative && a.creative.thumbnail_url,
     };
   });
   return map;
@@ -215,7 +230,7 @@ function resultKeywordFromObjective_(objective) {
   return null;
 }
 
-function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta) {
+function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta) {
   const actions = raw.actions || [];
   const uniqueActions = raw.unique_actions || [];
   const costPerAction = raw.cost_per_action_type || [];
@@ -234,16 +249,25 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta) {
 
   const campaignMeta = campaignsMeta[raw.campaign_id];
   let adsetMeta = null;
+  let adMeta = null;
   let resultKeyword = null;
   let budget = '';
+  let status = '';
 
   if (levelKey === 'campaign') {
     resultKeyword = resultKeywordFromObjective_(campaignMeta && campaignMeta.objective);
     budget = formatBudget_(campaignMeta);
+    status = (campaignMeta && campaignMeta.status) || '';
   } else {
     adsetMeta = adsetsMeta[raw.adset_id];
     resultKeyword = resultKeywordFromAdset_(adsetMeta) || resultKeywordFromObjective_(campaignMeta && campaignMeta.objective);
     budget = formatBudget_(adsetMeta) || formatBudget_(campaignMeta);
+    status = (adsetMeta && adsetMeta.status) || '';
+  }
+
+  if (levelKey === 'ad') {
+    adMeta = adsMeta[raw.ad_id];
+    status = (adMeta && adMeta.status) || status;
   }
 
   const resultCount = resultKeyword ? sumByKeyword_(actions, resultKeyword) : '';
@@ -257,7 +281,7 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta) {
     return raw.ad_name;
   });
 
-  return [raw.date_start].concat(nameCols).concat([
+  const row = [raw.date_start].concat(nameCols).concat([status]).concat([
     budget,
     resultCount,
     round2_(custoPorResultado),
@@ -274,13 +298,21 @@ function buildRow_(levelKey, raw, campaignsMeta, adsetsMeta) {
     linkClicks,
     lpvRate + '%',
   ]);
+
+  if (levelKey === 'ad') {
+    row.push((adMeta && adMeta.instagramUrl) || '');
+    row.push((adMeta && adMeta.thumbnailUrl) || '');
+  }
+
+  return row;
 }
 
-function syncLevel_(levelKey, token, campaignsMeta, adsetsMeta) {
+function syncLevel_(levelKey, token, campaignsMeta, adsetsMeta, adsMeta) {
   const level = LEVELS[levelKey];
   const rawRows = fetchInsights_(token, levelKey);
-  const headers = ['Data'].concat(level.nameHeaders).concat(METRIC_HEADERS);
-  const rows = rawRows.map((raw) => buildRow_(levelKey, raw, campaignsMeta, adsetsMeta));
+  let headers = ['Data'].concat(level.nameHeaders).concat(['Status']).concat(METRIC_HEADERS);
+  if (levelKey === 'ad') headers = headers.concat(['Link Instagram', 'Miniatura']);
+  const rows = rawRows.map((raw) => buildRow_(levelKey, raw, campaignsMeta, adsetsMeta, adsMeta));
 
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(level.sheetName);
@@ -306,10 +338,11 @@ function atualizarDados() {
   try {
     const campaignsMeta = getCampaignsMeta_(token);
     const adsetsMeta = getAdSetsMeta_(token);
+    const adsMeta = getAdsMeta_(token);
 
     const counts = {};
     Object.keys(LEVELS).forEach((levelKey) => {
-      counts[LEVELS[levelKey].sheetName] = syncLevel_(levelKey, token, campaignsMeta, adsetsMeta);
+      counts[LEVELS[levelKey].sheetName] = syncLevel_(levelKey, token, campaignsMeta, adsetsMeta, adsMeta);
     });
 
     const summary = Object.keys(counts).map((name) => `${name}: ${counts[name]} linhas`).join('\n');

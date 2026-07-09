@@ -6,7 +6,7 @@ const LEVELS = [
   { key: 'ad', sheetName: 'Anúncios', label: 'Anúncios', nameCols: ['Campanha', 'Conjunto de Anúncios', 'Anúncio'] },
 ];
 
-const state = { data: {}, activeLevel: 'campaign', charts: {} };
+const state = { data: {}, activeLevel: 'campaign', charts: {}, filters: { activeOnly: false, search: '' } };
 
 function num(v) {
   if (v === null || v === undefined || v === '') return 0;
@@ -56,6 +56,23 @@ async function fetchSheet(sheetName) {
     return obj;
   });
   return rows;
+}
+
+function statusBadge(status) {
+  if (!status) return '<span class="badge badge-muted">● —</span>';
+  const isActive = status === 'ACTIVE';
+  const label = isActive ? 'Ativo' : status.replace(/_/g, ' ').toLowerCase();
+  return `<span class="badge ${isActive ? 'badge-good' : 'badge-muted'}">● ${label}</span>`;
+}
+
+function filterRows(level, rows) {
+  const { activeOnly, search } = state.filters;
+  const term = search.trim().toLowerCase();
+  return rows.filter((r) => {
+    if (activeOnly && r['Status'] !== 'ACTIVE') return false;
+    if (term && !level.nameCols.some((c) => String(r[c] || '').toLowerCase().includes(term))) return false;
+    return true;
+  });
 }
 
 function groupBy(rows, keyFn) {
@@ -190,18 +207,29 @@ function renderKpis(agg) {
 
 function renderTable(level, rows) {
   const nameCols = level.nameCols;
+  const isAd = level.key === 'ad';
   const grouped = groupBy(rows, (r) => nameCols.map((c) => r[c]).join(' | '));
   const entries = Array.from(grouped.entries()).map(([key, groupRows]) => {
     const agg = aggregate(groupRows);
     const lastRow = groupRows[groupRows.length - 1];
-    return { names: key.split(' | '), budget: lastRow['Orçamento'] || '—', agg };
+    return {
+      names: key.split(' | '),
+      budget: lastRow['Orçamento'] || '—',
+      status: lastRow['Status'],
+      instagramUrl: lastRow['Link Instagram'],
+      thumbnail: lastRow['Miniatura'],
+      agg,
+    };
   });
   entries.sort((a, b) => b.agg.resultado - a.agg.resultado);
 
-  const thead = `<tr>${nameCols.map((c) => `<th>${c}</th>`).join('')}<th>Orçamento</th><th>Resultado</th><th>Custo/Resultado</th><th>CPM</th><th>Reach</th><th>Impressions</th></tr>`;
+  const extraHead = isAd ? '<th>Anúncio</th>' : '';
+  const thead = `<tr>${extraHead}${nameCols.map((c) => `<th>${c}</th>`).join('')}<th>Status</th><th>Orçamento</th><th>Resultado</th><th>Custo/Resultado</th><th>CPM</th><th>Reach</th><th>Impressions</th></tr>`;
   const tbody = entries.map((e) => `
     <tr>
+      ${isAd ? `<td>${e.thumbnail ? `<img class="thumb" src="${e.thumbnail}" alt="">` : ''}${e.instagramUrl ? `<a href="${e.instagramUrl}" target="_blank" rel="noopener">Ver no Instagram</a>` : ''}</td>` : ''}
       ${e.names.map((n) => `<td>${n || '—'}</td>`).join('')}
+      <td>${statusBadge(e.status)}</td>
       <td>${e.budget}</td>
       <td class="num">${fmtInt(e.agg.resultado)}</td>
       <td class="num">${fmtMoney(e.agg.custoPorResultado)}</td>
@@ -226,18 +254,31 @@ function renderCharts(rows) {
 
 function renderLevel(levelKey) {
   const level = LEVELS.find((l) => l.key === levelKey);
-  const rows = state.data[level.sheetName] || [];
+  const allRows = state.data[level.sheetName] || [];
   state.activeLevel = levelKey;
 
   document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.level === levelKey));
 
-  if (rows.length === 0) {
+  if (allRows.length === 0) {
     document.getElementById('empty-state').style.display = 'block';
     document.getElementById('dashboard-content').style.display = 'none';
     return;
   }
   document.getElementById('empty-state').style.display = 'none';
   document.getElementById('dashboard-content').style.display = 'block';
+
+  const rows = filterRows(level, allRows);
+  const nameCount = new Set(rows.map((r) => level.nameCols.map((c) => r[c]).join(' | '))).size;
+  document.getElementById('filter-summary').textContent = state.filters.search || state.filters.activeOnly
+    ? `${nameCount} ${level.label.toLowerCase()} encontrado(s) — totais e médias abaixo são só desse filtro.`
+    : '';
+
+  if (rows.length === 0) {
+    document.getElementById('kpi-grid').innerHTML = '';
+    document.getElementById('table-wrap').innerHTML = '';
+    ['chart-resultado', 'chart-custo-resultado', 'chart-cpm'].forEach(destroyChart);
+    return;
+  }
 
   renderKpis(aggregate(rows));
   renderCharts(rows);
@@ -267,6 +308,14 @@ document.addEventListener('DOMContentLoaded', () => {
     tab.addEventListener('click', () => renderLevel(tab.dataset.level));
   });
   document.getElementById('refresh-btn').addEventListener('click', loadAll);
+  document.getElementById('filter-active').addEventListener('change', (e) => {
+    state.filters.activeOnly = e.target.checked;
+    renderLevel(state.activeLevel);
+  });
+  document.getElementById('filter-search').addEventListener('input', (e) => {
+    state.filters.search = e.target.value;
+    renderLevel(state.activeLevel);
+  });
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderLevel(state.activeLevel));
   loadAll();
 });
