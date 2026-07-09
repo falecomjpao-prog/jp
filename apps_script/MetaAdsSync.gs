@@ -151,7 +151,8 @@ function getAdSetsMeta_(token) {
 }
 
 function getAdsMeta_(token) {
-  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/ads?fields=id,effective_status,creative{thumbnail_url,instagram_permalink_url}&limit=500&access_token=${token}`;
+  const fields = encodeURIComponent('id,effective_status,creative{thumbnail_url,instagram_permalink_url}');
+  const url = `https://graph.facebook.com/${API_VERSION}/${AD_ACCOUNT_ID}/ads?fields=${fields}&limit=500&access_token=${token}`;
   const rows = fetchAllPaginated_(url);
   const map = {};
   rows.forEach((a) => {
