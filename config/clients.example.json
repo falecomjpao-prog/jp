@@ -1,0 +1,12 @@
+{
+  "clientes": [
+    {
+      "nome": "Cliente A",
+      "ad_account_id": "act_1234567890"
+    },
+    {
+      "nome": "Cliente B",
+      "ad_account_id": "act_0987654321"
+    }
+  ]
+}
