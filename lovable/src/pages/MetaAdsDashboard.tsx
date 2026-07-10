@@ -69,22 +69,13 @@ function groupBy<T>(rows: T[], keyFn: (r: T) => string) {
   return map;
 }
 
-function ChartCard({ title, data, dataKey, color, formatter }: { title: string; data: any[]; dataKey: string; color: string; formatter: (n: number) => string }) {
-  return (
-    <div className="rounded-lg border bg-card p-4">
-      <h3 className="text-sm text-muted-foreground mb-3">{title}</h3>
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-border" />
-          <XAxis dataKey="date" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
-          <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} tickFormatter={formatter} width={60} />
-          <Tooltip formatter={(v: number) => formatter(v)} />
-          <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={false} activeDot={{ r: 5 }} />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  );
-}
+type ChartMetricKey = "compra" | "lead" | "spend";
+
+const CHART_METRICS: Record<ChartMetricKey, { label: string; dataKey: string; color: string; formatter: (n: number) => string }> = {
+  compra: { label: "Compra", dataKey: "compra", color: "#2a78d6", formatter: fmtInt },
+  lead: { label: "Leads", dataKey: "lead", color: "#1baf7a", formatter: fmtInt },
+  spend: { label: "Investimento", dataKey: "spend", color: "#eda100", formatter: fmtMoney },
+};
 
 export default function MetaAdsDashboard() {
   const [levelKey, setLevelKey] = useState<Level>("campaign");
@@ -93,6 +84,7 @@ export default function MetaAdsDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [activeOnly, setActiveOnly] = useState(false);
   const [search, setSearch] = useState("");
+  const [chartMetric, setChartMetric] = useState<ChartMetricKey>("compra");
 
   useEffect(() => {
     async function load() {
@@ -166,8 +158,8 @@ export default function MetaAdsDashboard() {
     ["Custo por Lead", fmtMoney(agg.custoPorLead)],
     ["Initiate Checkout", fmtInt(agg.initiate)],
     ["Custo por Initiate Checkout", fmtMoney(agg.custoPorInitiate)],
-    ["Landing Page Views", fmtInt(agg.lpv)],
-    ["Custo por LPV", fmtMoney(agg.custoPorLpv)],
+    ["Page Views", fmtInt(agg.lpv)],
+    ["Custo por Page Views", fmtMoney(agg.custoPorLpv)],
     ["Unique CTR (Link)", fmtPct(agg.uniqueCtr)],
     ["LPV Rate por Link Clicks", fmtPct(agg.lpvRate)],
     ["CPM", fmtMoney(agg.cpm)],
@@ -221,10 +213,39 @@ export default function MetaAdsDashboard() {
         ))}
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4 mb-8">
-        <ChartCard title="Compra por dia" data={chartData} dataKey="compra" color="#2a78d6" formatter={fmtInt} />
-        <ChartCard title="Lead por dia" data={chartData} dataKey="lead" color="#1baf7a" formatter={fmtInt} />
-        <ChartCard title="CPM por dia" data={chartData} dataKey="cpm" color="#eda100" formatter={fmtMoney} />
+      <div className="rounded-lg border bg-card p-4 mb-8">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm text-muted-foreground">{CHART_METRICS[chartMetric].label} por dia</h3>
+          <div className="flex gap-1">
+            {(Object.keys(CHART_METRICS) as ChartMetricKey[]).map((key) => (
+              <button
+                key={key}
+                onClick={() => setChartMetric(key)}
+                className={`px-3 py-1 rounded-md text-xs ${
+                  chartMetric === key ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                }`}
+              >
+                {CHART_METRICS[key].label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={240}>
+          <LineChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-border" />
+            <XAxis dataKey="date" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+            <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} tickFormatter={CHART_METRICS[chartMetric].formatter} width={70} />
+            <Tooltip formatter={(v: number) => CHART_METRICS[chartMetric].formatter(v)} />
+            <Line
+              type="monotone"
+              dataKey={CHART_METRICS[chartMetric].dataKey}
+              stroke={CHART_METRICS[chartMetric].color}
+              strokeWidth={2}
+              dot={false}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
 
       <div className="rounded-lg border bg-card overflow-x-auto">
