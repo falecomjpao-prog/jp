@@ -171,6 +171,7 @@ Deno.serve(async (_req) => {
           status: status || null,
           budget_amount: budget.amount,
           budget_type: budget.type,
+          spend: raw.spend ? parseFloat(raw.spend) : 0,
           compra,
           custo_por_compra: round2(custoPorCompra),
           lead,

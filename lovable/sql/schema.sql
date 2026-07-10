@@ -9,6 +9,7 @@ create table if not exists public.meta_insights_campaign (
   status text,
   budget_amount numeric,
   budget_type text check (budget_type in ('daily', 'lifetime')),
+  spend numeric default 0,
   compra numeric default 0,
   custo_por_compra numeric,
   lead numeric default 0,
@@ -39,6 +40,7 @@ create table if not exists public.meta_insights_adset (
   status text,
   budget_amount numeric,
   budget_type text check (budget_type in ('daily', 'lifetime')),
+  spend numeric default 0,
   compra numeric default 0,
   custo_por_compra numeric,
   lead numeric default 0,
@@ -71,6 +73,7 @@ create table if not exists public.meta_insights_ad (
   status text,
   budget_amount numeric,
   budget_type text check (budget_type in ('daily', 'lifetime')),
+  spend numeric default 0,
   compra numeric default 0,
   custo_por_compra numeric,
   lead numeric default 0,
@@ -105,3 +108,8 @@ create policy "Public read access" on public.meta_insights_ad for select to anon
 
 -- Não existe policy de INSERT/UPDATE pra "anon" de propósito: só a Edge Function
 -- (que usa a service role key, com acesso total) consegue escrever nessas tabelas.
+
+-- Se as tabelas já existiam antes da coluna "spend" ser adicionada acima, rode:
+-- alter table public.meta_insights_campaign add column if not exists spend numeric default 0;
+-- alter table public.meta_insights_adset add column if not exists spend numeric default 0;
+-- alter table public.meta_insights_ad add column if not exists spend numeric default 0;

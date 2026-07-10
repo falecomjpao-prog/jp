@@ -28,6 +28,7 @@ function fmtPct(n: number) {
 
 function aggregate(rows: Row[]) {
   const s = {
+    spend: 0,
     compra: 0, compraCost: 0, lead: 0, leadCost: 0,
     initiate: 0, initiateCost: 0, lpv: 0, lpvCost: 0,
     reach: 0, impressions: 0, cpmW: 0, ulc: 0, ulcCost: 0,
@@ -35,6 +36,7 @@ function aggregate(rows: Row[]) {
   rows.forEach((r) => {
     const compra = num(r.compra), lead = num(r.lead), initiate = num(r.initiate_checkout), lpv = num(r.landing_page_views);
     const impressions = num(r.impressions), reach = num(r.reach), ulc = num(r.unique_link_clicks);
+    s.spend += num(r.spend);
     s.compra += compra; s.compraCost += num(r.custo_por_compra) * compra;
     s.lead += lead; s.leadCost += num(r.custo_por_lead) * lead;
     s.initiate += initiate; s.initiateCost += num(r.custo_por_initiate_checkout) * initiate;
@@ -43,6 +45,7 @@ function aggregate(rows: Row[]) {
     s.ulc += ulc; s.ulcCost += num(r.custo_por_unique_link_click) * ulc;
   });
   return {
+    spend: s.spend,
     compra: s.compra, custoPorCompra: s.compra > 0 ? s.compraCost / s.compra : 0,
     lead: s.lead, custoPorLead: s.lead > 0 ? s.leadCost / s.lead : 0,
     initiate: s.initiate, custoPorInitiate: s.initiate > 0 ? s.initiateCost / s.initiate : 0,
@@ -156,6 +159,7 @@ export default function MetaAdsDashboard() {
   if (error) return <div className="p-8 text-red-500">Erro ao carregar: {error}</div>;
 
   const kpis: [string, string][] = [
+    ["Investimento", fmtMoney(agg.spend)],
     ["Compra", fmtInt(agg.compra)],
     ["Custo por Compra", fmtMoney(agg.custoPorCompra)],
     ["Lead", fmtInt(agg.lead)],
