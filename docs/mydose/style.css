@@ -483,6 +483,119 @@ table.funnel-table {
 .roas-pill.positive { color: var(--status-good); background: var(--status-good-bg); }
 .roas-pill.zero { color: var(--text-muted); background: var(--status-neutral-bg); }
 
+/* ---------- filtros (anúncios) ---------- */
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-checkbox input { accent-color: var(--cat-blue); width: 15px; height: 15px; }
+
+.filter-search-wrap {
+  position: relative;
+  flex: 1 1 260px;
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-search-wrap .icon { position: absolute; left: 11px; color: var(--text-muted); width: 15px; height: 15px; pointer-events: none; }
+
+.filter-search {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-size: 13.5px;
+  font-family: inherit;
+}
+
+.filter-search:focus { outline: none; border-color: var(--cat-blue); }
+
+.filter-summary { font-size: 12.5px; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
+
+/* ---------- tabela de anúncios ---------- */
+
+.ads-table { min-width: 1180px; }
+.ads-table th:nth-child(2),
+.ads-table td:nth-child(2) { text-align: left; }
+.ads-table td:nth-child(2) { font-weight: 400; }
+
+.ad-name-cell { display: flex; align-items: flex-start; gap: 10px; }
+
+.ad-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--cat-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ad-avatar .icon { width: 16px; height: 16px; }
+
+.ad-name-text { min-width: 0; }
+.ad-name { font-weight: 700; font-size: 13px; white-space: normal; }
+.ad-campaign {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.ad-instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--cat-blue);
+  text-decoration: none;
+  margin-top: 2px;
+}
+.ad-instagram-link .icon { width: 11px; height: 11px; }
+
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.group-total-row td {
+  background: var(--surface-muted);
+  border-top: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--border-strong);
+  font-weight: 700;
+}
+.group-total-row .group-total-label { font-weight: 700; font-size: 13px; }
+.group-total-row .group-total-sublabel { font-weight: 400; font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
 /* ---------- Evolução: gráficos ---------- */
 
 .chart-grid {

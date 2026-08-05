@@ -33,6 +33,9 @@ export function renderTopNav(container, { activePage, monthKey, onMonthChange })
       <a class="tab ${activePage === "evolucao" ? "active" : ""}" href="${withMonth("evolucao.html")}">
         ${icon("lineChart")} Evolução
       </a>
+      <a class="tab ${activePage === "anuncios" ? "active" : ""}" href="${withMonth("anuncios.html")}">
+        ${icon("megaphone")} Anúncios
+      </a>
     </nav>
     <div class="month-rail" id="month-rail"></div>
   `;

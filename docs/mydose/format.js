@@ -26,3 +26,12 @@ export function fmtDeltaPct(n) {
   const sign = n > 0 ? "+" : "";
   return sign + n.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "%";
 }
+
+export function fmtFreq(n) {
+  return (n ?? 0).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+/** Aplica `formatter` a `n`, ou devolve "—" quando não há dado (denominador zero, etc). */
+export function orDash(n, formatter) {
+  return n === null || n === undefined || Number.isNaN(n) ? "—" : formatter(n);
+}

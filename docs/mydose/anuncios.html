@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyDose Performance — Anúncios</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topnav" id="app-nav"></header>
+
+<main class="page">
+  <section class="section" style="margin-top:20px;">
+    <h2 class="section-title" id="ads-title"></h2>
+
+    <div class="filter-bar">
+      <label class="filter-checkbox">
+        <input type="checkbox" id="filter-active">
+        Somente ativos agora
+      </label>
+      <div class="filter-search-wrap" id="filter-search-wrap">
+        <input type="text" id="filter-search" class="filter-search" placeholder="Buscar por nomenclatura (ex: AD32, RMKT HOME)…">
+      </div>
+      <span id="filter-summary" class="filter-summary"></span>
+    </div>
+
+    <div class="table-card" id="ads-table-wrap"></div>
+  </section>
+</main>
+
+<script type="module">
+  import { icon } from "./icons.js";
+  document.getElementById("ads-title").innerHTML = `${icon("megaphone")} Anúncios`;
+  document.getElementById("filter-search-wrap").insertAdjacentHTML("afterbegin", icon("search"));
+</script>
+<script type="module" src="anuncios.js"></script>
+</body>
+</html>

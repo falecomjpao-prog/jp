@@ -18,6 +18,9 @@ const PATHS = {
   lineChart: '<path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/>',
   chevronLeft: '<path d="m15 5-7 7 7 7"/>',
   chevronRight: '<path d="m9 5 7 7-7 7"/>',
+  externalLink: '<path d="M14 4h6v6"/><path d="M10 14 20 4"/><path d="M19 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+  megaphone: '<path d="M3 11v2a2 2 0 0 0 2 2h1l3 6h2l-1-6h2l7 4V5l-7 4H8l-3 0a2 2 0 0 0-2 2Z"/><path d="M13 9v6"/>',
 };
 
 export function icon(name, extraClass = "") {
