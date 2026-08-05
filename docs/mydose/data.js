@@ -47,11 +47,6 @@ const MONTHLY = {
       { origem: "Workshop", mql: 98, custoMql: 12.9, sql: 0, custoSql: 0, opp: 1, custoOpp: 1264.8, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 46, custoMql: 14.1, sql: 0, custoSql: 0, opp: 0, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
     ],
-    criativos: [
-      { nome: "Criativo — Depoimento Ana", link: "#" },
-      { nome: "Criativo — Oferta Dezembro", link: "#" },
-      { nome: "Criativo — Comparativo Antes/Depois", link: "#" },
-    ],
   },
   "2026-01": {
     goals: { mql: { current: 240, target: 380 }, sql: { current: 22, target: 95 } },
@@ -74,11 +69,6 @@ const MONTHLY = {
       { origem: "WhatsApp Ads", mql: 3, custoMql: 245.0, sql: 1, custoSql: 735.0, opp: 2, custoOpp: 367.5, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Workshop", mql: 112, custoMql: 13.4, sql: 0, custoSql: 0, opp: 0, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 51, custoMql: 15.0, sql: 0, custoSql: 0, opp: 0, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
-    ],
-    criativos: [
-      { nome: "Criativo — Ano Novo Metas", link: "#" },
-      { nome: "Criativo — Prova Social Turma 12", link: "#" },
-      { nome: "Criativo — Bastidores Comunidade", link: "#" },
     ],
   },
   "2026-02": {
@@ -103,11 +93,6 @@ const MONTHLY = {
       { origem: "Workshop", mql: 130, custoMql: 13.9, sql: 1, custoSql: 1807, opp: 0, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 50, custoMql: 15.6, sql: 0, custoSql: 0, opp: 0, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
     ],
-    criativos: [
-      { nome: "Criativo — Carnaval Promo", link: "#" },
-      { nome: "Criativo — Depoimento Bruno", link: "#" },
-      { nome: "Criativo — Calculadora Interativa", link: "#" },
-    ],
   },
   "2026-03": {
     goals: { mql: { current: 300, target: 390 }, sql: { current: 29, target: 99 } },
@@ -130,11 +115,6 @@ const MONTHLY = {
       { origem: "WhatsApp Ads", mql: 3, custoMql: 271.0, sql: 1, custoSql: 813.0, opp: 3, custoOpp: 271.0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Workshop", mql: 148, custoMql: 14.6, sql: 2, custoSql: 1080, opp: 1, custoOpp: 2160, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 55, custoMql: 16.0, sql: 0, custoSql: 0, opp: 0, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
-    ],
-    criativos: [
-      { nome: "Criativo — Turma Março Aberta", link: "#" },
-      { nome: "Criativo — Depoimento Camila", link: "#" },
-      { nome: "Criativo — Bastidores Lab", link: "#" },
     ],
   },
   "2026-04": {
@@ -159,11 +139,6 @@ const MONTHLY = {
       { origem: "Workshop", mql: 165, custoMql: 15.1, sql: 3, custoSql: 806, opp: 2, custoOpp: 1209, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 58, custoMql: 16.6, sql: 1, custoSql: 962, opp: 1, custoOpp: 962, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
     ],
-    criativos: [
-      { nome: "Criativo — Abril Resultados", link: "#" },
-      { nome: "Criativo — Depoimento Felipe", link: "#" },
-      { nome: "Criativo — Comparativo ROI", link: "#" },
-    ],
   },
   "2026-05": {
     goals: { mql: { current: 355, target: 400 }, sql: { current: 36, target: 100 } },
@@ -187,11 +162,6 @@ const MONTHLY = {
       { origem: "Workshop", mql: 174, custoMql: 15.9, sql: 5, custoSql: 553, opp: 3, custoOpp: 922, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 60, custoMql: 17.1, sql: 2, custoSql: 513, opp: 1, custoOpp: 1026, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
     ],
-    criativos: [
-      { nome: "Criativo — Maio Turma Nova", link: "#" },
-      { nome: "Criativo — Depoimento Marina", link: "#" },
-      { nome: "Criativo — Antes e Depois", link: "#" },
-    ],
   },
   "2026-06": {
     goals: { mql: { current: 364, target: 402 }, sql: { current: 34, target: 100 } },
@@ -214,11 +184,6 @@ const MONTHLY = {
       { origem: "WhatsApp Ads", mql: 3, custoMql: 254.2, sql: 1, custoSql: 762.6, opp: 4, custoOpp: 190.7, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Workshop", mql: 168, custoMql: 16.5, sql: 4, custoSql: 692, opp: 3, custoOpp: 923, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 63, custoMql: 17.9, sql: 2, custoSql: 564, opp: 1, custoOpp: 1128, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
-    ],
-    criativos: [
-      { nome: "Criativo — Junho Aquecimento", link: "#" },
-      { nome: "Criativo — Depoimento Sofia", link: "#" },
-      { nome: "Criativo — Resultado 90 dias", link: "#" },
     ],
   },
   // Julho/26 — mês corrente, valores batendo com o print de referência.
@@ -246,11 +211,6 @@ const MONTHLY = {
       { origem: "Inbound", mql: 1, custoMql: 0, sql: 1, custoSql: 0, opp: 1, custoOpp: 0, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Workshop", mql: 157, custoMql: 17.86, sql: 4, custoSql: 701.04, opp: 3, custoOpp: 934.72, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
       { origem: "Lab", mql: 61, custoMql: 19.36, sql: 2, custoSql: 590.55, opp: 2, custoOpp: 590.55, clientes: 0, receita: 0, faturamento: 0, roas: 0 },
-    ],
-    criativos: [
-      { nome: "Criativo — Depoimento Turma Julho", link: "#" },
-      { nome: "Criativo — Oferta Comunidade", link: "#" },
-      { nome: "Criativo — Resultado Antes/Depois", link: "#" },
     ],
   },
 };

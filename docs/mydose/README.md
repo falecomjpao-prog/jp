@@ -8,7 +8,9 @@ pra ficar fácil de trocar depois pela integração real (Meta Ads / CRM).
 ## Páginas
 
 - `index.html` — Dashboard: comparação de mês, metas (MQL/SQL), cards de
-  métricas, tabela de performance por canal e melhores criativos.
+  métricas e tabela de performance por canal. (A lista de anúncios com
+  status/filtro de ativos/busca por nomenclatura fica numa tela à parte,
+  nos moldes do que já existe em `lovable/src/pages/MetaAdsDashboard.tsx`.)
 - `evolucao.html` — Evolução: gráficos de linha mês a mês pra cada métrica
   principal.
 
@@ -33,7 +35,7 @@ navegar entre as duas.
 
 1. Em `data.js`, troque o corpo de `fetchDashboardData(monthKey)` por uma
    chamada real (`fetch('/api/dashboard?mes=' + monthKey)`), mantendo as
-   mesmas chaves de retorno (`goals`, `kpis`, `canais`, `criativos`).
+   mesmas chaves de retorno (`goals`, `kpis`, `canais`).
 2. Troque `fetchEvolutionData()` por uma chamada que devolva um array com
    um item por mês, no mesmo formato.
 3. Nenhum outro arquivo precisa mudar — `dashboard.js`, `evolucao.js` e o

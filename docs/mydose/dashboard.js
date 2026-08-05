@@ -10,7 +10,6 @@ const strip = document.getElementById("receita-strip");
 const row2 = document.getElementById("kpi-row-2");
 const row3 = document.getElementById("kpi-row-3");
 const tableWrap = document.getElementById("funnel-table-wrap");
-const creativeGrid = document.getElementById("creative-grid");
 
 let sortKey = "faturamento";
 let sortDir = "desc";
@@ -252,30 +251,12 @@ function renderTable() {
   });
 }
 
-function renderCreatives(d) {
-  creativeGrid.innerHTML = d.criativos
-    .map(
-      (c) => `
-        <div class="creative-item">
-          <div class="creative-item-head">
-            <a class="creative-link" href="${c.link}" target="_blank" rel="noopener noreferrer">
-              LINK ${icon("externalLink")}
-            </a>
-          </div>
-          <div class="creative-thumb">${icon("image")}</div>
-        </div>
-      `
-    )
-    .join("");
-}
-
 async function render(monthKey) {
   const d = await fetchDashboardData(monthKey);
   currentCanais = d.canais;
   renderInfoBar(d);
   renderKpis(d);
   renderTable();
-  renderCreatives(d);
 }
 
 const initialMonth = getSelectedMonthKey();
