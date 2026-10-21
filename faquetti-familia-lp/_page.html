@@ -137,16 +137,8 @@
   .contact-col .eyebrow{display:block;margin-bottom:10px;color:#2A1D10}
   .contact-col h2{font-size:clamp(25px,3.4vw,33px);margin-bottom:12px}
   .contact-col p.lede{font-size:15.5px;color:rgba(28,18,16,.82);max-width:46ch;margin-bottom:24px}
-  .form-card{background:var(--cream);border-radius:18px;padding:clamp(22px,3vw,30px)}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-  .field label{font-size:13px;font-weight:700}
-  .field input,.field select,.field textarea{font-family:var(--font-body);font-size:14.5px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--fg)}
-  .field textarea{resize:vertical;min-height:84px}
-  .check-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--fg-muted);margin-bottom:18px}
-  .check-row input{margin-top:3px}
-  .form-note{font-size:12.5px;color:var(--fg-muted);margin-top:12px}
-  @media (max-width:560px){ .form-row{grid-template-columns:1fr} }
+  .cta-card{background:var(--cream);border-radius:18px;padding:clamp(22px,3vw,30px);display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+  .cta-card p{font-size:15px;color:var(--fg-muted);max-width:44ch}
 
   .map-card{background:#fff;border-radius:18px;overflow:hidden;min-height:340px;position:relative;display:flex;flex-direction:column}
   .map-pin{position:absolute;top:18px;left:18px;z-index:2;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 12px 26px -10px rgba(0,0,0,.35);max-width:240px}
@@ -364,33 +356,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="contact-col">
         <span class="eyebrow">Fale com a advogada</span>
         <h2>Conte o seu caso e receba orientação</h2>
-        <p class="lede">Preencha o formulário para organizar as informações e, em seguida, clique para enviar direto pelo WhatsApp. O atendimento inicial é feito pessoalmente pela Dra. Cintia Faquetti.</p>
-        <form class="form-card" id="leadForm">
-          <div class="form-row">
-            <div class="field"><label for="f-nome">Nome *</label><input id="f-nome" name="nome" type="text" placeholder="Seu nome" required></div>
-            <div class="field"><label for="f-wpp">WhatsApp *</label><input id="f-wpp" name="whatsapp" type="tel" placeholder="(00) 00000-0000" required></div>
-          </div>
-          <div class="field">
-            <label for="f-assunto">Qual é o assunto?</label>
-            <select id="f-assunto" name="assunto">
-              <option value="">Selecione o assunto</option>
-              <option>Divórcio</option>
-              <option>Guarda de Filhos</option>
-              <option>Pensão Alimentícia</option>
-              <option>Partilha de Bens</option>
-              <option>União Estável</option>
-              <option>Inventário e Sucessões</option>
-              <option>Lei Maria da Penha</option>
-              <option>Planejamento Sucessório</option>
-              <option>Outro assunto</option>
-            </select>
-          </div>
-          <div class="field"><label for="f-email">E-mail (opcional)</label><input id="f-email" name="email" type="email" placeholder="voce@email.com"></div>
-          <div class="field"><label for="f-msg">Conte brevemente a sua situação (opcional)</label><textarea id="f-msg" name="mensagem" placeholder="Ex.: Quero me divorciar e preciso de orientação sobre guarda e pensão."></textarea></div>
-          <label class="check-row"><input type="checkbox" required> Concordo em ser contatado(a) pela Faquetti Advocacia *</label>
-          <button type="submit" class="btn btn-dark" style="width:100%">Quero falar com a advogada</button>
-          <p class="form-note" id="formNote">Ao enviar, vamos abrir o WhatsApp com sua mensagem pronta para conferir e enviar.</p>
-        </form>
+        <p class="lede">Fale direto pelo WhatsApp e conte sua situação com tranquilidade. O atendimento inicial é feito pessoalmente pela Dra. Cintia Faquetti, com total sigilo.</p>
+        <div class="cta-card">
+          <p>Divórcio, guarda, pensão alimentícia, partilha de bens, união estável ou inventário — qualquer que seja o assunto, conte com a gente.</p>
+          <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+            Fale com a Dra. Cintia Faquetti
+          </a>
+        </div>
       </div>
       <div class="contact-col">
         <span class="eyebrow">Onde estamos</span>
@@ -470,30 +443,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
-  var WA_URL = 'https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834';
-  var form = document.getElementById('leadForm');
-  var note = document.getElementById('formNote');
-  if (form) {
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var nome = form.nome.value.trim();
-      var wpp = form.whatsapp.value.trim();
-      var assunto = form.assunto.value;
-      var email = form.email.value.trim();
-      var msg = form.mensagem.value.trim();
-      var lines = ['Olá! Vim pelo site da Faquetti Advocacia.', 'Nome: ' + nome, 'WhatsApp: ' + wpp];
-      if (assunto) lines.push('Assunto: ' + assunto);
-      if (email) lines.push('E-mail: ' + email);
-      if (msg) lines.push('Situação: ' + msg);
-      var text = lines.join('\n');
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).catch(function(){});
-      }
-      if (note) note.textContent = 'Mensagem copiada! Vamos abrir o WhatsApp — é só colar e enviar.';
-      window.open(WA_URL, '_blank', 'noopener');
-    });
-  }
-
   var widget = document.getElementById('waWidget');
   var fab = document.getElementById('waFab');
   var closeBtn = document.getElementById('waWidgetClose');
