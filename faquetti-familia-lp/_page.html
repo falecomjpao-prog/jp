@@ -47,8 +47,8 @@
   /* hero */
   .hero{position:relative;padding-block:clamp(120px,16vw,170px) clamp(70px,10vw,110px);background:radial-gradient(ellipse 80% 60% at 78% 15%,#3E1B22 0%,var(--ink) 55%,#120B09 100%);overflow:hidden;color:#fff}
   .hero-scales{position:absolute;right:-6%;top:8%;width:46%;max-width:560px;opacity:.14;pointer-events:none}
-  .hero-grid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,56px);align-items:center}
-  .hero-copy{display:flex;flex-direction:column;gap:22px}
+  .hero-grid{position:relative}
+  .hero-copy{display:flex;flex-direction:column;gap:22px;max-width:680px}
   .hero-copy h1{font-size:clamp(32px,5vw,54px);color:#fff}
   .hero-copy .lede{font-size:17.5px;color:rgba(255,255,255,.78);max-width:54ch}
   .hero-copy .lede b{color:#fff;font-weight:700}
@@ -57,15 +57,20 @@
   .pill svg{width:15px;height:15px;color:var(--gold-line)}
   .hero-ctas{margin-top:4px}
 
-  .chat-mock{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 36px 70px -24px rgba(0,0,0,.55);max-width:380px;margin-inline:auto}
-  .chat-mock-head{background:var(--whatsapp);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:16px 18px;font-weight:700;font-size:15px}
-  .chat-mock-head span{display:flex;align-items:center;gap:10px}
-  .chat-mock-head svg{width:20px;height:20px}
-  .chat-mock-body{padding:18px;display:flex;flex-direction:column;gap:10px;background:#F4EFE6}
+  @media (max-width:900px){ .hero-scales{display:none} }
+
+  /* whatsapp chat widget — opens from the floating button, not static page content */
+  .wa-widget{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(60px + max(20px,env(safe-area-inset-bottom,0px)) + 16px);z-index:49;width:min(360px,calc(100vw - 40px));background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 36px 70px -24px rgba(0,0,0,.55)}
+  .wa-widget[hidden]{display:none}
+  .wa-widget-head{background:var(--whatsapp);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:16px 18px;font-weight:700;font-size:15px}
+  .wa-widget-head span{display:flex;align-items:center;gap:10px}
+  .wa-widget-head svg{width:20px;height:20px}
+  .wa-widget-close{background:rgba(255,255,255,.2);border:0;width:26px;height:26px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+  .wa-widget-close svg{width:15px;height:15px}
+  .wa-widget-body{padding:18px;display:flex;flex-direction:column;gap:10px;background:#F4EFE6}
   .bubble{background:#fff;border-radius:12px;padding:12px 14px;font-size:14px;color:var(--fg);box-shadow:0 2px 6px rgba(0,0,0,.06);max-width:88%}
   .bubble.strong{font-weight:600}
-  .chat-mock-body .btn{margin-top:4px;width:100%}
-  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} .hero-scales{display:none} }
+  .wa-widget-body .btn{margin-top:4px;width:100%}
 
   /* ticker */
   .ticker-wrap{background:linear-gradient(90deg,var(--gold-bg-1),var(--gold-bg-2));overflow:hidden;border-top:1px solid rgba(255,255,255,.15)}
@@ -212,17 +217,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
             Fale com a Dra. Cintia Faquetti
           </a>
-        </div>
-      </div>
-      <div class="chat-mock">
-        <div class="chat-mock-head">
-          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>Faquetti Advocacia</span>
-        </div>
-        <div class="chat-mock-body">
-          <p class="bubble">Precisa de orientação em uma questão de Direito de Família?</p>
-          <p class="bubble">Fale com a Dra. Cintia Faquetti e entenda os próximos passos do seu caso.</p>
-          <p class="bubble strong">Clique no botão abaixo e fale com a advogada.</p>
-          <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">Fale com a Dra. Cintia Faquetti →</a>
         </div>
       </div>
     </div>
@@ -436,7 +430,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<a class="fab-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+<div class="wa-widget" id="waWidget" hidden>
+  <div class="wa-widget-head">
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>Faquetti Advocacia</span>
+    <button type="button" class="wa-widget-close" id="waWidgetClose" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 5l14 14M19 5 5 19"/></svg>
+    </button>
+  </div>
+  <div class="wa-widget-body">
+    <p class="bubble">Precisa de orientação em uma questão de Direito de Família?</p>
+    <p class="bubble">Fale com a Dra. Cintia Faquetti e entenda os próximos passos do seu caso.</p>
+    <p class="bubble strong">Clique no botão abaixo e fale com a advogada.</p>
+    <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">Fale com a Dra. Cintia Faquetti →</a>
+  </div>
+</div>
+
+<a class="fab-whatsapp" id="waFab" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" aria-expanded="false" aria-controls="waWidget">
   <span class="pulse" aria-hidden="true"></span>
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
 </a>
@@ -474,6 +483,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (note) note.textContent = 'Mensagem copiada! Vamos abrir o WhatsApp — é só colar e enviar.';
       window.open(WA_URL, '_blank', 'noopener');
     });
+  }
+
+  var widget = document.getElementById('waWidget');
+  var fab = document.getElementById('waFab');
+  var closeBtn = document.getElementById('waWidgetClose');
+  if (widget && fab && closeBtn) {
+    var DISMISS_KEY = 'faquetti_wa_widget_dismissed';
+    var isDismissed = function(){
+      try { return sessionStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; }
+    };
+    var setDismissed = function(){
+      try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+    };
+    var openWidget = function(){
+      widget.hidden = false;
+      fab.setAttribute('aria-expanded', 'true');
+    };
+    var closeWidget = function(){
+      widget.hidden = true;
+      fab.setAttribute('aria-expanded', 'false');
+      setDismissed();
+    };
+    fab.addEventListener('click', function(e){
+      e.preventDefault();
+      if (widget.hidden) openWidget(); else closeWidget();
+    });
+    closeBtn.addEventListener('click', closeWidget);
+    if (!isDismissed()) {
+      setTimeout(openWidget, 1500);
+    }
   }
 })();
 </script>
