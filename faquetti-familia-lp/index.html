@@ -50,8 +50,7 @@
   .nav img.logo{height:28px;width:auto}
 
   /* hero */
-  .hero{position:relative;padding-block:clamp(120px,16vw,170px) clamp(70px,10vw,110px);background:radial-gradient(ellipse 80% 60% at 78% 15%,#3E1B22 0%,var(--ink) 55%,#120B09 100%);overflow:hidden;color:#fff}
-  .hero-scales{position:absolute;right:-6%;top:8%;width:46%;max-width:560px;opacity:.14;pointer-events:none}
+  .hero{position:relative;padding-block:clamp(120px,16vw,170px) clamp(70px,10vw,110px);background-image:linear-gradient(100deg,rgba(14,8,7,.97) 0%,rgba(19,11,10,.94) 26%,rgba(59,20,27,.8) 46%,rgba(93,32,41,.56) 65%,rgba(93,32,41,.26) 88%,rgba(93,32,41,.12) 100%),url('images/hero-justice.webp');background-size:cover;background-position:center 38%;background-repeat:no-repeat;background-color:var(--ink);overflow:hidden;color:#fff}
   .hero-grid{position:relative}
   .hero-copy{display:flex;flex-direction:column;gap:22px;max-width:680px}
   .hero-copy h1{font-size:clamp(32px,5vw,54px);color:#fff}
@@ -62,7 +61,6 @@
   .pill svg{width:15px;height:15px;color:var(--gold-line)}
   .hero-ctas{margin-top:4px}
 
-  @media (max-width:900px){ .hero-scales{display:none} }
 
   /* whatsapp chat widget — opens from the floating button, not static page content */
   .wa-widget{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(60px + max(20px,env(safe-area-inset-bottom,0px)) + 16px);z-index:49;width:min(360px,calc(100vw - 40px));background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 36px 70px -24px rgba(0,0,0,.55)}
@@ -207,10 +205,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main>
   <section class="hero">
-    <svg class="hero-scales" viewBox="0 0 200 220" fill="none" stroke="#E4C98C" stroke-width="2">
-      <path d="M100 10v160M60 36h80M100 36 70 90h60L100 36ZM100 36 130 90H70L100 36ZM55 90a15 15 0 0 0 30 0M115 90a15 15 0 0 0 30 0M70 170h60M100 170v20"/>
-      <circle cx="100" cy="24" r="6"/>
-    </svg>
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <h1>Precisa de advogada em Direito de Família?</h1>
