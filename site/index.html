@@ -85,12 +85,13 @@
   .journey p{color:var(--muted);font-size:18px;margin:16px 0 30px;}
 
   /* ---------- Ticker ---------- */
-  .ticker-wrap{background:var(--red);overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000;}
-  .ticker{display:flex;white-space:nowrap;animation:scroll 28s linear infinite;}
-  .ticker span{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:15px;padding:16px 0;color:#fff;}
+  .ticker-wrap{background:var(--red) !important;overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000;width:100%;}
+  .ticker{display:flex;width:max-content;animation:scroll 90s linear infinite;will-change:transform;}
+  .ticker-set{display:flex;flex-shrink:0;white-space:nowrap;}
+  .ticker span{font-family:'Oswald',sans-serif !important;font-weight:700 !important;letter-spacing:1px;text-transform:uppercase !important;font-size:15px;padding:16px 0;color:#fff !important;display:inline-block;}
   .ticker span::after{content:"•";margin:0 22px;}
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-  @media (prefers-reduced-motion:reduce){.ticker{animation:none;overflow-x:auto;}}
+  @media (prefers-reduced-motion:reduce){.ticker{animation:none;}.ticker-wrap{overflow-x:auto;}}
 
   /* ---------- Features ---------- */
   .features-section{display:grid;grid-template-columns:1.4fr 1fr;gap:0;padding:0;border-bottom:1px solid var(--border);}
@@ -236,8 +237,12 @@
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span>
-    <span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span>
+    <div class="ticker-set">
+      <span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span><span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span><span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span><span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span>
+    </div>
+    <div class="ticker-set" aria-hidden="true">
+      <span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span><span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span><span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span><span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span>
+    </div>
   </div>
 </div>
 
