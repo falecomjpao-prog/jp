@@ -7,7 +7,11 @@ substituído pelo formulário embedado do GoHighLevel (CRM).
 ## Como abrir
 
 Basta abrir `index.html` direto no navegador — não precisa de servidor nem
-de instalar nada.
+de instalar nada. As fotos já disponíveis (logo, hero, coach, "respect is
+everything", faixa, "why we train") estão embutidas direto no HTML em
+base64, então o arquivo funciona sozinho mesmo se você mover/baixar só ele,
+sem precisar levar a pasta `images/` junto. Os arquivos originais ficam em
+`site/images/` só como fonte, caso precise trocar/editar alguma foto depois.
 
 ## Fotos
 
