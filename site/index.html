@@ -94,15 +94,16 @@
   @media (prefers-reduced-motion:reduce){.ticker{animation:none;}.ticker-wrap{overflow-x:auto;}}
 
   /* ---------- Features ---------- */
-  .features-section{display:grid;grid-template-columns:1.4fr 1fr;gap:0;padding:0;border-bottom:1px solid var(--border);}
-  .features-grid{display:grid;grid-template-columns:repeat(2,1fr);}
-  .feature-card{padding:40px 32px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .features-section{position:relative;background:var(--bg);border-bottom:1px solid var(--border);padding-block:70px;overflow:hidden;}
+  .features-grid{display:flex;flex-wrap:wrap;gap:22px;position:relative;z-index:1;padding-right:240px;}
+  .feature-card{flex:1 1 220px;background:var(--bg-raised);border:1px solid var(--border);padding:32px 28px;}
   .feature-card .num{font-family:'Anton',sans-serif;color:var(--red);font-size:30px;}
   .feature-card h3{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:18px;letter-spacing:.5px;margin:10px 0 10px;}
   .feature-card p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:0;}
-  .features-photo{position:relative;min-height:320px;background:linear-gradient(160deg,#1b241b,#0a0a0a 70%);}
-  @media (max-width:900px){.features-section{grid-template-columns:1fr;} .features-photo{min-height:220px;}}
-  @media (max-width:560px){.features-grid{grid-template-columns:1fr;}}
+  .features-photo{position:absolute;top:0;right:0;bottom:0;width:260px;background:linear-gradient(160deg,#1b241b,#0a0a0a 70%);}
+  @media (max-width:1150px){.features-grid{padding-right:0;} .features-photo{display:none;}}
+  @media (max-width:860px){.feature-card{flex:1 1 calc(50% - 11px);}}
+  @media (max-width:560px){.feature-card{flex:1 1 100%;}}
 
   /* ---------- Schedule ---------- */
   .sched-head p{color:var(--muted);font-size:16px;max-width:560px;line-height:1.5;}
@@ -247,15 +248,17 @@
 </div>
 
 <!-- FEATURES -->
-<div class="features-section">
-  <div class="features-grid">
-    <div class="feature-card"><div class="num">01</div><h3>Train With a World Champion</h3><p>Learn directly from Leonardo Peçanha.</p></div>
-    <div class="feature-card"><div class="num">02</div><h3>Programs For Every Age</h3><p>PeeWee, Kids, Adults Beginners, Adults Intermediary, Adults All Levels and MMA.</p></div>
-    <div class="feature-card"><div class="num">03</div><h3>Evening &amp; Weekend Classes</h3><p>Sessions on weekday evenings and Saturday mornings to fit around work and school.</p></div>
-    <div class="feature-card"><div class="num">04</div><h3>Central Location</h3><p>Inside Burwood Plaza, right by Burwood station.</p></div>
+<section class="features-section">
+  <div class="wrap">
+    <div class="features-grid">
+      <div class="feature-card"><div class="num">01</div><h3>Train With a World Champion</h3><p>Learn directly from Leonardo Peçanha.</p></div>
+      <div class="feature-card"><div class="num">02</div><h3>Programs For Every Age</h3><p>PeeWee, Kids, Adults Beginners, Adults Intermediary, Adults All Levels and MMA.</p></div>
+      <div class="feature-card"><div class="num">03</div><h3>Evening &amp; Weekend Classes</h3><p>Sessions on weekday evenings and Saturday mornings to fit around work and school.</p></div>
+      <div class="feature-card"><div class="num">04</div><h3>Central Location</h3><p>Inside Burwood Plaza, right by Burwood station.</p></div>
+    </div>
   </div>
   <div class="features-photo"><div class="ph-label">[ FOTO: textura / fachada — images/features-side.jpg ]</div></div>
-</div>
+</section>
 
 <!-- SCHEDULE -->
 <section id="schedule">
