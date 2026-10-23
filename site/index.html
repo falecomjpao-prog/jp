@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kronos BJJ — Burwood</title>
+<meta name="description" content="Build confidence, fitness & discipline with BJJ. Train with World Champion Leonardo Peçanha in Burwood, Sydney.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg-raised:#141414;
+    --border:#262626;
+    --fg:#f5f5f5;
+    --muted:#9a9a9a;
+    --red:#e21b26;
+    --red-dark:#b4121b;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1280px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));}
+  .display{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;text-wrap:balance;line-height:.95;}
+  .label{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:13px;color:var(--red);}
+  .ui{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,10,.9);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  header.nav .bar{display:flex;align-items:center;justify-content:space-between;padding-block:14px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.5px;}
+  .brand .badge{width:34px;height:34px;border-radius:50%;border:2px solid var(--fg);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:13px;flex-shrink:0;}
+  nav.links{display:flex;gap:28px;}
+  nav.links a{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .15s;}
+  nav.links a:hover{color:var(--fg);}
+  @media (max-width:860px){ nav.links{display:none;} }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--red);color:#fff;
+    font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:14px;
+    padding:14px 26px;text-decoration:none;border:none;cursor:pointer;
+    transition:background .15s, transform .1s;
+  }
+  .btn:hover{background:var(--red-dark);}
+  .btn:active{transform:translateY(1px);}
+  .btn-sm{padding:10px 18px;font-size:13px;}
+
+  section{padding-block:clamp(56px,9vw,110px);}
+  .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .eyebrow .rule{width:28px;height:2px;background:var(--red);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;min-height:88vh;display:flex;align-items:flex-end;
+    padding-block:60px;
+    background:
+      linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.78) 38%, rgba(5,5,5,.25) 72%, rgba(5,5,5,.5) 100%),
+      radial-gradient(ellipse at 70% 30%, #2a2a2a 0%, #141414 55%, #0a0a0a 100%);
+    border-bottom:1px solid var(--border);
+  }
+  .hero-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#3a3a3a;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;pointer-events:none;}
+  .hero-content{position:relative;z-index:1;max-width:760px;}
+  .hero h1{font-size:clamp(40px,6.4vw,76px);margin:14px 0 20px;}
+  .hero p.sub{font-size:clamp(16px,2vw,20px);color:#d4d4d4;max-width:540px;margin:0 0 30px;line-height:1.5;}
+
+  /* ---------- Journey ---------- */
+  .journey h2{font-size:clamp(44px,8vw,96px);margin:0;}
+  .journey h2 .red{color:var(--red);}
+  .journey p{color:var(--muted);font-size:18px;margin:16px 0 30px;}
+
+  /* ---------- Ticker ---------- */
+  .ticker-wrap{background:var(--red);overflow:hidden;border-top:1px solid #000;border-bottom:1px solid #000;}
+  .ticker{display:flex;white-space:nowrap;animation:scroll 28s linear infinite;}
+  .ticker span{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:15px;padding:16px 0;color:#fff;}
+  .ticker span::after{content:"•";margin:0 22px;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion:reduce){.ticker{animation:none;overflow-x:auto;}}
+
+  /* ---------- Features ---------- */
+  .features-section{display:grid;grid-template-columns:1.4fr 1fr;gap:0;padding:0;border-bottom:1px solid var(--border);}
+  .features-grid{display:grid;grid-template-columns:repeat(2,1fr);}
+  .feature-card{padding:40px 32px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .feature-card .num{font-family:'Anton',sans-serif;color:var(--red);font-size:30px;}
+  .feature-card h3{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:18px;letter-spacing:.5px;margin:10px 0 10px;}
+  .feature-card p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:0;}
+  .features-photo{position:relative;min-height:320px;background:linear-gradient(160deg,#1b241b,#0a0a0a 70%);}
+  @media (max-width:900px){.features-section{grid-template-columns:1fr;} .features-photo{min-height:220px;}}
+  @media (max-width:560px){.features-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Schedule ---------- */
+  .sched-head p{color:var(--muted);font-size:16px;max-width:560px;line-height:1.5;}
+  .tabs{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 36px;}
+  .tab{
+    font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;
+    padding:10px 16px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer;
+  }
+  .tab.active{background:var(--red);border-color:var(--red);}
+  .week-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+  @media (max-width:980px){.week-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:620px){.week-grid{grid-template-columns:repeat(2,1fr);}}
+  .day-col h4{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:14px;border-bottom:2px solid var(--red);padding-bottom:8px;margin:0 0 12px;}
+  .class-card{background:var(--bg-raised);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 14px;margin-bottom:10px;}
+  .class-card .time{font-weight:600;font-size:14px;}
+  .class-card .name{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.3px;margin:3px 0;}
+  .class-card .dur{display:inline-block;background:#0a0a0a;border:1px solid var(--border);color:var(--muted);font-size:11px;padding:2px 8px;border-radius:3px;}
+  .class-card.hidden{display:none;}
+
+  /* ---------- Zig-zag beginners section ---------- */
+  .zig h2{font-size:clamp(32px,5vw,48px);margin:10px 0 44px;}
+  .zig-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:64px;}
+  .zig-row:last-child{margin-bottom:0;}
+  .zig-row.rev .zig-photo{order:2;}
+  .zig-row.rev .zig-text{order:1;}
+  .zig-photo{aspect-ratio:4/3;background:linear-gradient(160deg,#1c1c1c,#0a0a0a 75%);border:1px solid var(--border);position:relative;}
+  .zig-text .num{font-family:'Anton',sans-serif;color:var(--red);font-size:30px;}
+  .zig-text h3{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:22px;margin:8px 0 12px;}
+  .zig-text p{color:var(--muted);font-size:15.5px;line-height:1.6;margin:0;}
+  @media (max-width:760px){.zig-row,.zig-row.rev{grid-template-columns:1fr;gap:22px;} .zig-row.rev .zig-photo,.zig-row.rev .zig-text{order:initial;}}
+
+  .ph-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#444;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:12px;}
+
+  /* ---------- Coach ---------- */
+  .coach{display:grid;grid-template-columns:320px 1fr;gap:56px;align-items:center;}
+  .coach-photo{aspect-ratio:3/4;background:linear-gradient(160deg,#1c1c1c,#0a0a0a 75%);border:1px solid var(--border);position:relative;}
+  .coach h2{font-size:clamp(34px,5vw,54px);margin:10px 0 18px;}
+  .coach .rule{width:48px;height:3px;background:var(--red);margin:16px 0;}
+  .coach p.role{color:var(--muted);font-size:13px;}
+  @media (max-width:700px){.coach{grid-template-columns:1fr;}}
+
+  /* ---------- Why ---------- */
+  .why{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .why-photo{aspect-ratio:1/1;background:linear-gradient(160deg,#1c1c1c,#0a0a0a 75%);border:1px solid var(--border);position:relative;}
+  .why h2{font-size:clamp(32px,5vw,48px);margin:10px 0 28px;}
+  .why-item{display:flex;gap:16px;margin-bottom:22px;}
+  .why-item .n{font-family:'Anton',sans-serif;color:var(--red);font-size:26px;width:32px;flex-shrink:0;}
+  .why-item h4{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:16px;margin:0 0 4px;}
+  .why-item p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:0;}
+  @media (max-width:760px){.why{grid-template-columns:1fr;}}
+
+  /* ---------- Testimonials ---------- */
+  .g-badge{display:flex;align-items:center;gap:14px;border:1px solid var(--border);padding:16px 20px;max-width:420px;margin:28px 0 30px;}
+  .g-badge .g-ic{width:30px;height:30px;flex-shrink:0;}
+  .g-badge strong{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:13px;letter-spacing:.5px;display:block;}
+  .g-badge .stars{color:var(--red);font-size:13px;letter-spacing:1px;}
+  .g-badge .sub{color:var(--muted);font-size:12.5px;}
+  .reviews-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;}
+  .review-card{flex:0 0 min(360px,86vw);scroll-snap-align:start;background:var(--bg-raised);border:1px solid var(--border);padding:24px;display:flex;flex-direction:column;}
+  .review-card .stars{color:var(--red);font-size:14px;margin-bottom:12px;}
+  .review-card p{color:#d4d4d4;font-size:14.5px;line-height:1.6;flex:1;margin:0 0 18px;}
+  .review-card .foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px;font-size:12.5px;}
+  .review-card .foot .name{font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:700;font-size:12.5px;}
+  .review-card .foot .posted{color:var(--muted);display:flex;align-items:center;gap:5px;}
+  .carousel-nav{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;}
+  .cnav-btn{width:38px;height:38px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .cnav-btn:hover{border-color:var(--red);}
+
+  /* ---------- Booking / Form ---------- */
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:0;border:1px solid var(--border);border-bottom:none;}
+  .step3{padding:24px 26px;border-top:3px solid var(--red);border-right:1px solid var(--border);}
+  .step3:last-child{border-right:none;}
+  .step3 .num{font-family:'Anton',sans-serif;color:var(--red);font-size:22px;}
+  .step3 h4{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;margin:6px 0 6px;}
+  .step3 p{color:var(--muted);font-size:13.5px;margin:0;line-height:1.5;}
+  @media (max-width:760px){.steps3{grid-template-columns:1fr;} .step3{border-right:none;border-bottom:1px solid var(--border);}}
+  .form-shell{border:1px solid var(--border);border-top:none;background:var(--bg-raised);padding:clamp(16px,3vw,28px);}
+  .form-shell iframe{display:block;width:100%;min-height:977px;border:none;}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--border);padding-block:56px;}
+  .foot-grid{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:40px;}
+  .foot-brand .badge{width:60px;height:60px;border-radius:50%;border:2px solid var(--fg);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:18px;margin-bottom:14px;}
+  .foot-brand h3{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;}
+  .foot-brand p{color:var(--muted);font-size:13.5px;margin:0 0 16px;}
+  .soc{display:flex;gap:10px;}
+  .soc a{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;}
+  .soc a:hover{border-color:var(--red);}
+  .foot-contact h4{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:14px;margin:0 0 16px;}
+  .cline{display:flex;gap:10px;margin-bottom:14px;color:#d4d4d4;font-size:14px;line-height:1.5;}
+  .cline svg{flex-shrink:0;margin-top:2px;color:var(--red);}
+  .map-box{border:1px solid var(--border);aspect-ratio:16/10;overflow:hidden;}
+  .map-box iframe{width:100%;height:100%;border:0;}
+  .copyright{border-top:1px solid var(--border);margin-top:40px;padding-top:20px;color:var(--muted);font-size:13px;}
+  @media (max-width:860px){.foot-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap bar">
+    <div class="brand"><span class="badge">K</span>KRONOS BJJ</div>
+    <nav class="links">
+      <a href="#schedule">Schedule</a>
+      <a href="#coach">Coach</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#trial-form">Contact</a>
+    </nav>
+    <a href="#trial-form" class="btn btn-sm">Free Trial</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ph">[ FOTO: duas alunas treinando — substitua por images/hero.jpg ]</div>
+  <div class="wrap hero-content">
+    <p class="label">KRONOS BJJ · BURWOOD, SYDNEY</p>
+    <h1 class="display">Build Confidence, Fitness &amp; Discipline with BJJ</h1>
+    <p class="sub">Train with World Champion Leonardo Peçanha in the heart of Burwood. Beginners welcome.</p>
+    <a href="#trial-form" class="btn">Claim My Free Trial</a>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey">
+  <div class="wrap">
+    <h2 class="display">Start Your<br><span class="red">Journey.</span></h2>
+    <p>A journey you won't regret.</p>
+    <a href="#trial-form" class="btn">Book Free Trial</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span>
+    <span>ALL LEVELS WELCOME</span><span>KIDS AND ADULTS</span><span>WORLD CHAMPION INSTRUCTOR</span><span>FREE TRIAL</span><span>BURWOOD PLAZA</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-section">
+  <div class="features-grid">
+    <div class="feature-card"><div class="num">01</div><h3>Train With a World Champion</h3><p>Learn directly from Leonardo Peçanha.</p></div>
+    <div class="feature-card"><div class="num">02</div><h3>Programs For Every Age</h3><p>PeeWee, Kids, Adults Beginners, Adults Intermediary, Adults All Levels and MMA.</p></div>
+    <div class="feature-card"><div class="num">03</div><h3>Evening &amp; Weekend Classes</h3><p>Sessions on weekday evenings and Saturday mornings to fit around work and school.</p></div>
+    <div class="feature-card"><div class="num">04</div><h3>Central Location</h3><p>Inside Burwood Plaza, right by Burwood station.</p></div>
+  </div>
+  <div class="features-photo"><div class="ph-label">[ FOTO: textura / fachada — images/features-side.jpg ]</div></div>
+</div>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="wrap">
+    <div class="eyebrow"><span class="rule"></span><span class="label">Schedule</span></div>
+    <div class="sched-head">
+      <h2 class="display" style="font-size:clamp(32px,5vw,52px);">Class Timetable</h2>
+      <p>Classes run Monday to Saturday. Find a time that fits your week and show up — consistency is everything.</p>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="peewee">PeeWee</button>
+      <button class="tab" data-cat="kids">Kids</button>
+      <button class="tab" data-cat="adults-beginners">Adults Beginners</button>
+      <button class="tab" data-cat="adults-intermediary">Adults Intermediary</button>
+      <button class="tab" data-cat="adults-all">Adults All Levels</button>
+      <button class="tab" data-cat="mma">MMA</button>
+    </div>
+    <div class="week-grid" id="week-grid"></div>
+  </div>
+</section>
+
+<div class="wrap" style="padding-bottom:60px;">
+  <a href="#trial-form" class="btn">Book Free Trial</a>
+</div>
+
+<!-- BEGINNERS ZIGZAG -->
+<section class="zig">
+  <div class="wrap">
+    <div class="eyebrow"><span class="rule"></span><span class="label">Beginners</span></div>
+    <h2 class="display">First Time on the Mat?<br>We've Got You.</h2>
+
+    <div class="zig-row">
+      <div class="zig-photo"><div class="ph-label">[ FOTO: turma em grupo — images/beginners-1.jpg ]</div></div>
+      <div class="zig-text"><div class="num">01</div><h3>Start With the Basics</h3><p>Walking into a martial arts gym for the first time can feel intimidating. We guide every new member through the fundamentals with zero pressure, and you'll watch sparring before you ever do it.</p></div>
+    </div>
+
+    <div class="zig-row rev">
+      <div class="zig-photo"><div class="ph-label">[ FOTO: coach com crianças — images/beginners-2.jpg ]</div></div>
+      <div class="zig-text"><div class="num">02</div><h3>Respect is Everything</h3><p>Our experienced students help beginners on and off the mats. Everyone here started at day one too.</p></div>
+    </div>
+
+    <div class="zig-row">
+      <div class="zig-photo"><div class="ph-label">[ FOTO: amarrando faixa — images/beginners-3.jpg ]</div></div>
+      <div class="zig-text"><div class="num">03</div><h3>You Don't Need to Be Fit to Start</h3><p>No fitness, flexibility or experience needed. What matters is starting and showing up.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap" style="padding-bottom:60px;">
+  <a href="#trial-form" class="btn">Claim My Free Trial</a>
+</div>
+
+<!-- COACH -->
+<section id="coach">
+  <div class="wrap">
+    <div class="eyebrow"><span class="rule"></span><span class="label">The Team</span></div>
+    <h2 class="display" style="font-size:clamp(32px,5vw,48px);margin-bottom:34px;">Our Coach</h2>
+    <div class="coach">
+      <div class="coach-photo"><div class="ph-label">[ FOTO: Leonardo Peçanha — images/coach.jpg ]</div></div>
+      <div>
+        <p class="label">Head Instructor · World Champion</p>
+        <h2 class="display">Leonardo Peçanha</h2>
+        <div class="rule"></div>
+        <p class="role">Leading Kronos since 2018 and producing skilled BJJ athletes in Sydney.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section>
+  <div class="wrap">
+    <div class="why">
+      <div class="why-photo"><div class="ph-label">[ FOTO: criança treinando com coach — images/why.jpg ]</div></div>
+      <div>
+        <div class="eyebrow"><span class="rule"></span><span class="label">Our Why</span></div>
+        <h2 class="display">Why Do We Train?</h2>
+        <div class="why-item"><div class="n">1</div><div><h4>Mind</h4><p>Every session makes you think strategically and adapt fast, building a disciplined mindset that carries into the rest of your life.</p></div></div>
+        <div class="why-item"><div class="n">2</div><div><h4>Body</h4><p>A full-body workout that builds strength, endurance, mobility and flexibility while you're having fun.</p></div></div>
+        <div class="why-item"><div class="n">3</div><div><h4>Confidence</h4><p>Solving problems under pressure makes you calmer and stronger, physically and mentally.</p></div></div>
+        <div class="why-item"><div class="n">4</div><div><h4>Community</h4><p>Make real friends with like-minded people. At Kronos you're part of a family.</p></div></div>
+        <a href="#trial-form" class="btn" style="margin-top:10px;">Book Free Trial</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews">
+  <div class="wrap">
+    <h2 class="display" style="font-size:clamp(32px,5vw,48px);">What Our Members Say</h2>
+    <div class="g-badge">
+      <svg class="g-ic" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18A13.98 13.98 0 0 1 10.9 24c0-1.45.25-2.86.69-4.18v-5.7H4.34A21.99 21.99 0 0 0 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
+      <div><strong>Google Reviews</strong><span class="stars">★★★★★</span><span class="sub"> 5.0 · real reviews from our Google profile</span></div>
+    </div>
+
+    <div class="reviews-track" id="reviews-track">
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Leo is an amazing Professor and highly experienced instructor in Brazilian Jiu Jitsu, his gyms are conveniently located across 3 locations and will have a 4th in the near future. Kronos focuses on all levels of Bjj and has a great approach to competition training, the classes are also structured for BJJ enthusiasts looking to improve their art without the need to compete with a heavy focus on fundamentals. The first thing you will notice is the patience and talent of Leo and his team with the Peewee and Kids classes. Highly recommend if you are someone looking to start BJJ or further improve your skills for the competition scene."</p>
+        <div class="foot"><span class="name">C Tran</span><span class="posted">Posted on Google</span></div>
+      </article>
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Amazing BJJ dojo!"</p>
+        <div class="foot"><span class="name">Isa Hassan</span><span class="posted">Posted on Google</span></div>
+      </article>
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"When my daughter was almost 3 years old, she started jiu-jitsu, and we were so lucky to find such a class with an amazing and friendly coach. I used to accompany her on the mat during the class until last week, and now I gradually wait outside. During all this time, the coach has been very cooperative and treats the kids excellently and appropriately. The kids learn discipline very well. Both my husband and I are very happy that our daughter likes this class and her coach, and we are grateful to Leo."</p>
+        <div class="foot"><span class="name">Kim F</span><span class="posted">Posted on Google</span></div>
+      </article>
+    </div>
+    <div class="carousel-nav">
+      <button class="cnav-btn" id="rev-prev" aria-label="Previous">‹</button>
+      <button class="cnav-btn" id="rev-next" aria-label="Next">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING / FORM -->
+<section id="trial-form">
+  <div class="wrap">
+    <div class="steps3">
+      <div class="step3"><div class="num">01</div><h4>Pick a Session</h4><p>Pick a day and time below and leave your details.</p></div>
+      <div class="step3"><div class="num">02</div><h4>We'll Confirm</h4><p>You'll receive a confirmation by email or phone.</p></div>
+      <div class="step3"><div class="num">03</div><h4>Show Up and Give It a Go</h4><p>Wear comfortable clothes, we'll guide you through everything.</p></div>
+    </div>
+    <div class="form-shell">
+      <iframe
+          src="https://funel.kronosbjj.com.au/widget/form/CFQeT6wzTav8mJcdaTv9"
+          style="width:100%;height:100%;border:none;border-radius:4px"
+          id="inline-CFQeT6wzTav8mJcdaTv9"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Free Trial Form - Adult"
+          data-height="977"
+          data-layout-iframe-id="inline-CFQeT6wzTav8mJcdaTv9"
+          data-form-id="CFQeT6wzTav8mJcdaTv9"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
+          title="Free Trial Form - Adult">
+      </iframe>
+      <script src="https://funel.kronosbjj.com.au/js/form_embed.js"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="badge">K</div>
+        <h3>Kronos BJJ</h3>
+        <p>Kronos Burwood · Est. 2018</p>
+        <div class="soc">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-contact">
+        <h4>Contact</h4>
+        <div class="cline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Basement Level (Fitbodz Gym), Burwood Plaza, 42 Railway Parade, Burwood NSW 2134</span></div>
+        <div class="cline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>0483 908 847</span></div>
+        <div class="cline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg><span>info@kronosbjj.com.au</span></div>
+      </div>
+      <div>
+        <div class="map-box">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Burwood+Plaza+42+Railway+Parade+Burwood+NSW+2134&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Kronos BJJ. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var schedule = {
+    MON: [
+      {t:"4:10pm", n:"BJJ - GI - PEEWEE", d:"45 MIN", cat:"peewee"},
+      {t:"5:00pm", n:"BJJ - GI - KIDS", d:"1 HR", cat:"kids"},
+      {t:"6:00pm", n:"BJJ - GI - ADULTS BEGINNERS", d:"1 HR", cat:"adults-beginners"},
+      {t:"7:10pm", n:"BJJ - GI - ADULTS INTERMEDIARY", d:"1 HR", cat:"adults-intermediary"}
+    ],
+    TUE: [
+      {t:"6:30am", n:"MMA", d:"1 HR", cat:"mma"},
+      {t:"5:00pm", n:"BJJ - GI - KIDS", d:"1 HR", cat:"kids"},
+      {t:"6:00pm", n:"BJJ - GI - ADULTS INTERMEDIARY", d:"1 HR", cat:"adults-intermediary"},
+      {t:"7:10pm", n:"BJJ - NO GI - ADULTS ALL LEVELS", d:"1 HR", cat:"adults-all"}
+    ],
+    WED: [
+      {t:"6:30am", n:"BJJ - GI - ADULTS ALL LEVELS", d:"1 HR", cat:"adults-all"},
+      {t:"4:10pm", n:"BJJ - GI - PEEWEE", d:"45 MIN", cat:"peewee"},
+      {t:"5:00pm", n:"BJJ - GI - KIDS", d:"1 HR", cat:"kids"},
+      {t:"6:00pm", n:"BJJ - GI - ADULTS BEGINNERS", d:"1 HR", cat:"adults-beginners"},
+      {t:"7:10pm", n:"BJJ - GI - ADULTS INTERMEDIARY", d:"1 HR", cat:"adults-intermediary"}
+    ],
+    THU: [
+      {t:"6:30am", n:"MMA", d:"1 HR", cat:"mma"},
+      {t:"5:00pm", n:"BJJ - GI - KIDS", d:"1 HR", cat:"kids"},
+      {t:"6:00pm", n:"BJJ - GI - ADULTS INTERMEDIARY", d:"1 HR", cat:"adults-intermediary"},
+      {t:"7:10pm", n:"BJJ - NO GI - ADULTS ALL LEVELS", d:"1 HR", cat:"adults-all"}
+    ],
+    FRI: [
+      {t:"6:30am", n:"BJJ - GI - ADULTS ALL LEVELS", d:"1 HR", cat:"adults-all"},
+      {t:"4:10pm", n:"BJJ - GI - PEEWEE", d:"45 MIN", cat:"peewee"},
+      {t:"5:00pm", n:"BJJ - GI - KIDS", d:"1 HR", cat:"kids"},
+      {t:"6:00pm", n:"BJJ - GI - ADULTS ALL LEVELS", d:"1 HR", cat:"adults-all"},
+      {t:"7:10pm", n:"BJJ - GI - OPEN MAT", d:"1 HR", cat:"adults-all"}
+    ],
+    SAT: [
+      {t:"10:00am", n:"BJJ - GI - KIDS & PEEWEE", d:"1 HR", cat:"kids"},
+      {t:"11:00am", n:"BJJ - GI - ADULTS ALL LEVELS", d:"1 HR", cat:"adults-all"}
+    ]
+  };
+  var dayNames = {MON:"Monday",TUE:"Tuesday",WED:"Wednesday",THU:"Thursday",FRI:"Friday",SAT:"Saturday"};
+  var grid = document.getElementById('week-grid');
+  Object.keys(schedule).forEach(function(day){
+    var col = document.createElement('div');
+    col.className = 'day-col';
+    var h4 = document.createElement('h4');
+    h4.textContent = dayNames[day];
+    col.appendChild(h4);
+    schedule[day].forEach(function(cls){
+      var card = document.createElement('div');
+      card.className = 'class-card';
+      card.dataset.cat = cls.cat;
+      card.innerHTML = '<div class="time">'+cls.t+'</div><div class="name">'+cls.n+'</div><span class="dur">'+cls.d+'</span>';
+      col.appendChild(card);
+    });
+    grid.appendChild(col);
+  });
+
+  document.getElementById('tabs').addEventListener('click', function(e){
+    var btn = e.target.closest('.tab');
+    if(!btn) return;
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    btn.classList.add('active');
+    var cat = btn.dataset.cat;
+    document.querySelectorAll('.class-card').forEach(function(card){
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
+  });
+
+  var track = document.getElementById('reviews-track');
+  document.getElementById('rev-next').addEventListener('click', function(){ track.scrollBy({left: 380, behavior:'smooth'}); });
+  document.getElementById('rev-prev').addEventListener('click', function(){ track.scrollBy({left: -380, behavior:'smooth'}); });
+})();
+</script>
+
+</body>
+</html>
