@@ -173,15 +173,39 @@
   .cnav-btn:hover{border-color:var(--red);}
 
   /* ---------- Booking / Form ---------- */
-  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:0;border:1px solid var(--border);border-bottom:none;}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);}
   .step3{padding:24px 26px;border-top:3px solid var(--red);border-right:1px solid var(--border);}
   .step3:last-child{border-right:none;}
   .step3 .num{font-family:'Anton',sans-serif;color:var(--red);font-size:22px;}
   .step3 h4{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;margin:6px 0 6px;}
   .step3 p{color:var(--muted);font-size:13.5px;margin:0;line-height:1.5;}
   @media (max-width:760px){.steps3{grid-template-columns:1fr;} .step3{border-right:none;border-bottom:1px solid var(--border);}}
-  .form-shell{border:1px solid var(--border);border-top:none;background:var(--bg-raised);padding:clamp(16px,3vw,28px);}
+  .form-shell{border:1px solid var(--border);background:var(--bg-raised);padding:clamp(16px,3vw,28px);transition:box-shadow .4s;}
+  .form-shell.pulse{box-shadow:0 0 0 3px var(--red);}
   .form-shell iframe{display:block;width:100%;min-height:977px;border:none;}
+
+  /* ---------- Booking calendar ---------- */
+  .cal-wrap{max-width:540px;margin:36px auto;background:var(--bg-raised);border:1px solid var(--border);padding:26px 26px 22px;}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .cal-arrow{background:none;border:none;color:var(--fg);font-size:20px;line-height:1;cursor:pointer;padding:4px 10px;}
+  .cal-arrow:hover{color:var(--red);}
+  .cal-month{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:15px;}
+  .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px;}
+  .cal-weekdays span{text-align:center;color:var(--muted);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding-block:6px;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:4px;}
+  .cal-cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:13.5px;color:var(--fg);}
+  .cal-cell.has-day{cursor:pointer;}
+  .cal-cell.has-day:hover{background:var(--border);}
+  .cal-cell.past{color:#4a4a4a;cursor:default;}
+  .cal-cell.past:hover{background:none;}
+  .cal-cell.selected{background:var(--red);color:#fff;font-weight:700;}
+  .cal-times{margin-top:20px;border-top:1px solid var(--border);padding-top:18px;}
+  .cal-times-label{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:0 0 12px;}
+  .cal-times-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .cal-time-btn{font-family:'Oswald',sans-serif;font-weight:700;font-size:13.5px;background:var(--bg);border:1px solid var(--border);color:var(--fg);padding:11px 16px;cursor:pointer;}
+  .cal-time-btn:hover{border-color:var(--red);color:var(--red);}
+  .cal-closed{color:var(--muted);font-size:13.5px;}
+  .cal-caption{color:var(--muted);font-size:12.5px;margin:18px 0 0;text-align:center;}
 
   /* ---------- Footer ---------- */
   footer{border-top:1px solid var(--border);padding-block:56px;}
@@ -383,12 +407,32 @@
 <!-- BOOKING / FORM -->
 <section id="trial-form">
   <div class="wrap">
+    <div class="eyebrow"><span class="rule"></span><span class="label">Get Started</span></div>
+    <h2 class="display" style="font-size:clamp(32px,5vw,48px);margin-bottom:28px;">Book Your Free Trial</h2>
     <div class="steps3">
       <div class="step3"><div class="num">01</div><h4>Pick a Session</h4><p>Pick a day and time below and leave your details.</p></div>
       <div class="step3"><div class="num">02</div><h4>We'll Confirm</h4><p>You'll receive a confirmation by email or phone.</p></div>
       <div class="step3"><div class="num">03</div><h4>Show Up and Give It a Go</h4><p>Wear comfortable clothes, we'll guide you through everything.</p></div>
     </div>
-    <div class="form-shell">
+
+    <div class="cal-wrap" id="cal-wrap">
+      <div class="cal-head">
+        <button class="cal-arrow" id="cal-prev" aria-label="Previous month">‹</button>
+        <span class="cal-month" id="cal-month"></span>
+        <button class="cal-arrow" id="cal-next" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+      </div>
+      <div class="cal-grid" id="cal-grid-days"></div>
+      <div class="cal-times" id="cal-times" hidden>
+        <p class="cal-times-label" id="cal-times-label"></p>
+        <div class="cal-times-row" id="cal-times-row"></div>
+      </div>
+      <p class="cal-caption">Pick a day, then choose a time to claim your free trial.</p>
+    </div>
+
+    <div class="form-shell" id="booking-form">
       <iframe
           src="https://funel.kronosbjj.com.au/widget/form/CFQeT6wzTav8mJcdaTv9"
           style="width:100%;height:100%;border:none;border-radius:4px"
@@ -514,6 +558,101 @@
   var track = document.getElementById('reviews-track');
   document.getElementById('rev-next').addEventListener('click', function(){ track.scrollBy({left: 380, behavior:'smooth'}); });
   document.getElementById('rev-prev').addEventListener('click', function(){ track.scrollBy({left: -380, behavior:'smooth'}); });
+
+  /* ---------- Booking calendar ---------- */
+  var weekdayKeys = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var today = new Date(); today.setHours(0,0,0,0);
+  var viewYear = today.getFullYear();
+  var viewMonth = today.getMonth();
+  var selectedDate = null;
+
+  var monthLabel = document.getElementById('cal-month');
+  var gridDays = document.getElementById('cal-grid-days');
+  var timesBox = document.getElementById('cal-times');
+  var timesLabel = document.getElementById('cal-times-label');
+  var timesRow = document.getElementById('cal-times-row');
+  var bookingForm = document.getElementById('booking-form');
+
+  function renderCalendar(){
+    monthLabel.textContent = monthNames[viewMonth].toUpperCase() + ' ' + viewYear;
+    gridDays.innerHTML = '';
+
+    var firstOfMonth = new Date(viewYear, viewMonth, 1);
+    var leading = (firstOfMonth.getDay() + 6) % 7; // Monday = 0
+    var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+    for (var i = 0; i < leading; i++) {
+      var blank = document.createElement('div');
+      blank.className = 'cal-cell';
+      gridDays.appendChild(blank);
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var cellDate = new Date(viewYear, viewMonth, d);
+      var cell = document.createElement('div');
+      cell.textContent = d;
+      cell.className = 'cal-cell has-day';
+
+      if (cellDate < today) {
+        cell.classList.add('past');
+      } else {
+        cell.addEventListener('click', (function(dt){
+          return function(){ selectDate(dt); };
+        })(cellDate));
+      }
+
+      if (selectedDate && cellDate.getTime() === selectedDate.getTime()) {
+        cell.classList.add('selected');
+      }
+
+      gridDays.appendChild(cell);
+    }
+  }
+
+  function selectDate(date){
+    selectedDate = date;
+    renderCalendar();
+
+    var dayKey = weekdayKeys[date.getDay()];
+    var classes = schedule[dayKey];
+    var label = date.toLocaleDateString('en-AU', {weekday:'long', day:'numeric', month:'short'});
+    timesLabel.textContent = 'Available Times · ' + label;
+    timesRow.innerHTML = '';
+
+    if (!classes || classes.length === 0) {
+      var msg = document.createElement('p');
+      msg.className = 'cal-closed';
+      msg.textContent = 'No classes that day — pick another date.';
+      timesRow.appendChild(msg);
+    } else {
+      classes.forEach(function(cls){
+        var btn = document.createElement('button');
+        btn.className = 'cal-time-btn';
+        btn.type = 'button';
+        btn.textContent = cls.t;
+        btn.addEventListener('click', function(){
+          bookingForm.scrollIntoView({behavior:'smooth', block:'center'});
+          bookingForm.classList.add('pulse');
+          setTimeout(function(){ bookingForm.classList.remove('pulse'); }, 1200);
+        });
+        timesRow.appendChild(btn);
+      });
+    }
+    timesBox.hidden = false;
+  }
+
+  document.getElementById('cal-prev').addEventListener('click', function(){
+    viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  });
+  document.getElementById('cal-next').addEventListener('click', function(){
+    viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    renderCalendar();
+  });
+
+  renderCalendar();
+  selectDate(today);
 })();
 </script>
 
