@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kronos BJJ — Burwood</title>
+<link rel="icon" type="image/png" href="images/logo.png">
 <meta name="description" content="Build confidence, fitness & discipline with BJJ. Train with World Champion Leonardo Peçanha in Burwood, Sydney.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +44,7 @@
   }
   header.nav .bar{display:flex;align-items:center;justify-content:space-between;padding-block:14px;}
   .brand{display:flex;align-items:center;gap:10px;font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.5px;}
-  .brand .badge{width:34px;height:34px;border-radius:50%;border:2px solid var(--fg);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:13px;flex-shrink:0;}
+  .brand .badge{width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;}
   nav.links{display:flex;gap:28px;}
   nav.links a{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .15s;}
   nav.links a:hover{color:var(--fg);}
@@ -70,7 +71,7 @@
     padding-block:60px;
     background:
       linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.78) 38%, rgba(5,5,5,.25) 72%, rgba(5,5,5,.5) 100%),
-      radial-gradient(ellipse at 70% 30%, #2a2a2a 0%, #141414 55%, #0a0a0a 100%);
+      url('images/hero.webp') center 25%/cover no-repeat;
     border-bottom:1px solid var(--border);
   }
   .hero-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#3a3a3a;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;pointer-events:none;}
@@ -183,7 +184,7 @@
   /* ---------- Footer ---------- */
   footer{border-top:1px solid var(--border);padding-block:56px;}
   .foot-grid{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:40px;}
-  .foot-brand .badge{width:60px;height:60px;border-radius:50%;border:2px solid var(--fg);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:18px;margin-bottom:14px;}
+  .foot-brand .badge{width:60px;height:60px;border-radius:50%;object-fit:cover;margin-bottom:14px;}
   .foot-brand h3{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;}
   .foot-brand p{color:var(--muted);font-size:13.5px;margin:0 0 16px;}
   .soc{display:flex;gap:10px;}
@@ -202,7 +203,7 @@
 
 <header class="nav">
   <div class="wrap bar">
-    <div class="brand"><span class="badge">K</span>KRONOS BJJ</div>
+    <div class="brand"><img class="badge" src="images/logo.png" alt="Kronos BJJ logo">KRONOS BJJ</div>
     <nav class="links">
       <a href="#schedule">Schedule</a>
       <a href="#coach">Coach</a>
@@ -215,7 +216,6 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-ph">[ FOTO: duas alunas treinando — substitua por images/hero.jpg ]</div>
   <div class="wrap hero-content">
     <p class="label">KRONOS BJJ · BURWOOD, SYDNEY</p>
     <h1 class="display">Build Confidence, Fitness &amp; Discipline with BJJ</h1>
@@ -289,12 +289,12 @@
     </div>
 
     <div class="zig-row rev">
-      <div class="zig-photo"><div class="ph-label">[ FOTO: coach com crianças — images/beginners-2.jpg ]</div></div>
+      <div class="zig-photo" style="background:url('images/beginners-2.webp') center/cover no-repeat;"></div>
       <div class="zig-text"><div class="num">02</div><h3>Respect is Everything</h3><p>Our experienced students help beginners on and off the mats. Everyone here started at day one too.</p></div>
     </div>
 
     <div class="zig-row">
-      <div class="zig-photo"><div class="ph-label">[ FOTO: amarrando faixa — images/beginners-3.jpg ]</div></div>
+      <div class="zig-photo" style="background:url('images/beginners-3.webp') center/cover no-repeat;"></div>
       <div class="zig-text"><div class="num">03</div><h3>You Don't Need to Be Fit to Start</h3><p>No fitness, flexibility or experience needed. What matters is starting and showing up.</p></div>
     </div>
   </div>
@@ -310,7 +310,7 @@
     <div class="eyebrow"><span class="rule"></span><span class="label">The Team</span></div>
     <h2 class="display" style="font-size:clamp(32px,5vw,48px);margin-bottom:34px;">Our Coach</h2>
     <div class="coach">
-      <div class="coach-photo"><div class="ph-label">[ FOTO: Leonardo Peçanha — images/coach.jpg ]</div></div>
+      <div class="coach-photo" style="background:url('images/coach.webp') center/cover no-repeat;"></div>
       <div>
         <p class="label">Head Instructor · World Champion</p>
         <h2 class="display">Leonardo Peçanha</h2>
@@ -325,7 +325,7 @@
 <section>
   <div class="wrap">
     <div class="why">
-      <div class="why-photo"><div class="ph-label">[ FOTO: criança treinando com coach — images/why.jpg ]</div></div>
+      <div class="why-photo" style="background:url('images/why.webp') center/cover no-repeat;"></div>
       <div>
         <div class="eyebrow"><span class="rule"></span><span class="label">Our Why</span></div>
         <h2 class="display">Why Do We Train?</h2>
@@ -410,7 +410,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <div class="badge">K</div>
+        <img class="badge" src="images/logo.png" alt="Kronos BJJ logo">
         <h3>Kronos BJJ</h3>
         <p>Kronos Burwood · Est. 2018</p>
         <div class="soc">
