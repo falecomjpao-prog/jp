@@ -95,13 +95,11 @@
 
   /* ---------- Features ---------- */
   .features-section{position:relative;background:var(--bg);border-bottom:1px solid var(--border);padding-block:70px;overflow:hidden;}
-  .features-grid{display:flex;flex-wrap:wrap;gap:22px;position:relative;z-index:1;padding-right:240px;}
+  .features-grid{display:flex;flex-wrap:wrap;gap:22px;position:relative;z-index:1;}
   .feature-card{flex:1 1 220px;background:var(--bg-raised);border:1px solid var(--border);padding:32px 28px;}
   .feature-card .num{font-family:'Anton',sans-serif;color:var(--red);font-size:30px;}
   .feature-card h3{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:18px;letter-spacing:.5px;margin:10px 0 10px;}
   .feature-card p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:0;}
-  .features-photo{position:absolute;top:0;right:0;bottom:0;width:260px;background:linear-gradient(160deg,#1b241b,#0a0a0a 70%);}
-  @media (max-width:1150px){.features-grid{padding-right:0;} .features-photo{display:none;}}
   @media (max-width:860px){.feature-card{flex:1 1 calc(50% - 11px);}}
   @media (max-width:560px){.feature-card{flex:1 1 100%;}}
 
@@ -282,7 +280,6 @@
       <div class="feature-card"><div class="num">04</div><h3>Central Location</h3><p>Inside Burwood Plaza, right by Burwood station.</p></div>
     </div>
   </div>
-  <div class="features-photo"></div>
 </section>
 
 <!-- SCHEDULE -->
