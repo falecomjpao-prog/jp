@@ -223,14 +223,6 @@
   .copyright{border-top:1px solid var(--border);margin-top:40px;padding-top:20px;color:var(--muted);font-size:13px;}
   @media (max-width:860px){.foot-grid{grid-template-columns:1fr;}}
 </style>
-<!-- Google tag (gtag.js) - Google Ads conversion tracking -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11306260410"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-11306260410');
-</script>
 </head>
 <body>
 
@@ -702,16 +694,16 @@
 
 <script>
 (function(){
-  // Fires the Google Ads "Lead" conversion when the GoHighLevel form posts a submit message.
+  // Redirects to the thank-you page (which already has the tracking pixels)
+  // once the GoHighLevel form posts a submit message.
   var GHL_FORM_ID = 'CFQeT6wzTav8mJcdaTv9';
-  var fired = false;
+  var THANK_YOU_URL = 'https://www.kronosbjj.com.au/ty-fw';
+  var redirected = false;
 
-  function fireLeadConversion(){
-    if (fired) return;
-    fired = true;
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {'send_to': 'AW-11306260410/JnUPCNjoneQYELqvn48q'});
-    }
+  function goToThankYou(){
+    if (redirected) return;
+    redirected = true;
+    window.location.href = THANK_YOU_URL;
   }
 
   window.addEventListener('message', function(event){
@@ -734,7 +726,7 @@
       (typeof data === 'string' && /submit/i.test(data));
 
     if (looksLikeSubmit && (looksLikeThisForm || typeof data === 'string')) {
-      fireLeadConversion();
+      goToThankYou();
     }
   });
 })();
