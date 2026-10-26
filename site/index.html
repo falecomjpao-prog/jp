@@ -223,6 +223,14 @@
   .copyright{border-top:1px solid var(--border);margin-top:40px;padding-top:20px;color:var(--muted);font-size:13px;}
   @media (max-width:860px){.foot-grid{grid-template-columns:1fr;}}
 </style>
+<!-- Google tag (gtag.js) - Google Ads conversion tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11306260410"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-11306260410');
+</script>
 </head>
 <body>
 
@@ -692,5 +700,44 @@
 })();
 </script>
 
+<script>
+(function(){
+  // Fires the Google Ads "Lead" conversion when the GoHighLevel form posts a submit message.
+  var GHL_FORM_ID = 'CFQeT6wzTav8mJcdaTv9';
+  var fired = false;
+
+  function fireLeadConversion(){
+    if (fired) return;
+    fired = true;
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {'send_to': 'AW-11306260410/JnUPCNjoneQYELqvn48q'});
+    }
+  }
+
+  window.addEventListener('message', function(event){
+    if (!event || !event.data) return;
+    var data = event.data;
+
+    // GoHighLevel's form_embed.js posts the submitted form's id back to the parent window.
+    // Different versions have used slightly different shapes, so check the common ones.
+    var looksLikeThisForm =
+      data.formId === GHL_FORM_ID ||
+      data.id === GHL_FORM_ID ||
+      (typeof data === 'string' && data.indexOf(GHL_FORM_ID) !== -1);
+
+    var looksLikeSubmit =
+      data.type === 'form-submit' ||
+      data.type === 'form-submitted' ||
+      data.type === 'formSubmit' ||
+      data.event === 'form_submission' ||
+      data.eventType === 'form-submit' ||
+      (typeof data === 'string' && /submit/i.test(data));
+
+    if (looksLikeSubmit && (looksLikeThisForm || typeof data === 'string')) {
+      fireLeadConversion();
+    }
+  });
+})();
+</script>
 </body>
 </html>
