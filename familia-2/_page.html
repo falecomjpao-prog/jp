@@ -1,0 +1,589 @@
+<title>Faquetti Advocacia — Direito de Família</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!--FONTS-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<!--/FONTS-->
+<style>
+  /* Layout: v2 of the família LP, inspired by drbrunocarvalho.com's block order — hero w/ team photo collage, firm bio split, trust-badge strip, value props, plain checklist of areas, dark CTA band, real Google-reviews carousel, contact+map. */
+  :root{
+    --bg:#F7F3EC; --surface:#FFFFFF; --fg:#241B15; --fg-muted:#6F6155; --line:#E6DBC8;
+    --maroon:#5D2029; --maroon-deep:#3B141B; --ink:#1C1210;
+    --gold:#9C7A34; --gold-soft:#C9A463; --gold-line:#E4C98C;
+    --gold-bg-1:#B99A54; --gold-bg-2:#8C6E34;
+    --cream:#F3ECDF;
+    --whatsapp:#25D366; --whatsapp-deep:#1DA851;
+    --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+    --font-body:'Work Sans',-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{background:var(--bg)}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+  p{margin:0}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .eyebrow{font-family:var(--font-body);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
+  section{padding-block:clamp(52px,8vw,96px)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-body);font-weight:600;font-size:15.5px;border-radius:999px;padding:15px 26px;text-decoration:none;border:1px solid transparent;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease;cursor:pointer;white-space:nowrap}
+  .btn:active{transform:scale(.98)}
+  .btn-whatsapp{background:var(--whatsapp);color:#fff;box-shadow:0 10px 24px -10px rgba(37,211,102,.55)}
+  .btn-whatsapp:hover{background:var(--whatsapp-deep)}
+  .btn-whatsapp svg{width:19px;height:19px;flex:none}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{background:#000}
+  .btn-sm{padding:10px 18px;font-size:14px}
+  .wa-icon{width:19px;height:19px;flex:none}
+
+  /* header */
+  header.site{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:40;background:transparent}
+  header.site.scrolled{background:var(--ink)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding-block:16px;gap:16px}
+  .nav img.logo{height:28px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,.88);text-decoration:none}
+  .nav-links a:hover{color:#fff}
+  @media (max-width:860px){ .nav-links{display:none} }
+
+  /* hero */
+  .hero{position:relative;padding-block:clamp(120px,16vw,170px) clamp(60px,9vw,96px);background:linear-gradient(160deg,var(--ink),#2A1A17);color:#fff;overflow:hidden}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,56px);align-items:center}
+  .hero-copy{display:flex;flex-direction:column;gap:20px}
+  .hero-copy h1{font-size:clamp(32px,4.6vw,50px);color:#fff}
+  .hero-copy .lede{font-size:17px;color:rgba(255,255,255,.78);max-width:52ch}
+  .hero-photo-wrap{display:flex;flex-direction:column;gap:14px}
+  .hero-photo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .hero-photo img{width:100%;height:auto;border-radius:12px;box-shadow:0 18px 36px -20px rgba(0,0,0,.5)}
+  .hero-badge{align-self:center;background:rgba(20,12,10,.6);border:1px solid rgba(228,201,140,.35);border-radius:999px;padding:9px 20px;text-align:center}
+  .hero-badge strong{font-family:var(--font-display);font-size:14.5px;color:var(--gold-line);letter-spacing:.01em}
+  .hero-badge span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-left:8px}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} .hero-photo-wrap{max-width:420px;margin-inline:auto;width:100%} }
+
+  /* whatsapp chat widget */
+  .wa-widget{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(60px + max(20px,env(safe-area-inset-bottom,0px)) + 16px);z-index:49;width:min(360px,calc(100vw - 40px));background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 36px 70px -24px rgba(0,0,0,.55)}
+  .wa-widget[hidden]{display:none}
+  .wa-widget-head{background:var(--whatsapp);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:16px 18px;font-weight:700;font-size:15px}
+  .wa-widget-head span{display:flex;align-items:center;gap:10px}
+  .wa-widget-head svg{width:20px;height:20px}
+  .wa-widget-close{background:rgba(255,255,255,.2);border:0;width:26px;height:26px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+  .wa-widget-close svg{width:15px;height:15px}
+  .wa-widget-body{padding:18px;display:flex;flex-direction:column;gap:10px;background:#F4EFE6}
+  .bubble{background:#fff;border-radius:12px;padding:12px 14px;font-size:14px;color:var(--fg);box-shadow:0 2px 6px rgba(0,0,0,.06);max-width:88%}
+  .bubble.strong{font-weight:600}
+  .wa-widget-body .btn{margin-top:4px;width:100%}
+
+  /* trust badge strip */
+  .badges{background:var(--maroon);color:#fff}
+  .badges .wrap{display:flex;flex-wrap:wrap;gap:28px;padding-block:28px}
+  .badge-item{display:flex;align-items:center;gap:14px;flex:1 1 220px}
+  .badge-item svg{width:34px;height:34px;flex:none;color:var(--gold-line)}
+  .badge-item strong{display:block;font-size:16px;font-weight:700;line-height:1.25}
+
+  /* bio split */
+  .bio{background:var(--surface)}
+  .bio-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,52px);align-items:center}
+  .bio-grid img{width:100%;border-radius:16px;box-shadow:0 24px 48px -26px rgba(0,0,0,.4)}
+  .bio-copy{display:flex;flex-direction:column;gap:18px;font-size:17px;color:var(--fg)}
+  .bio-copy p{line-height:1.7}
+  @media (max-width:860px){ .bio-grid{grid-template-columns:1fr} }
+
+  /* value props */
+  .values{background:var(--cream)}
+  .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:40px}
+  .value-item{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .value-item .ring{width:56px;height:56px;border-radius:50%;border:1.5px solid var(--maroon);display:flex;align-items:center;justify-content:center}
+  .value-item .ring svg{width:26px;height:26px;color:var(--maroon)}
+  .value-item h4{font-family:var(--font-display);font-size:17px;font-weight:600}
+  .value-item p{font-size:13.5px;color:var(--fg-muted);max-width:28ch}
+  .values-cta{text-align:center}
+  @media (max-width:860px){ .values-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .values-grid{grid-template-columns:1fr} }
+
+  /* area list */
+  .areas{background:var(--surface)}
+  .areas-head{text-align:center;max-width:620px;margin:0 auto 36px}
+  .areas-head h2{font-size:clamp(26px,3.6vw,36px);color:var(--maroon-deep)}
+  .areas-list{list-style:none;margin:0 auto;padding:0;max-width:860px;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+  .areas-list li{display:flex;align-items:flex-start;gap:12px;font-size:15.5px;padding-block:10px;border-bottom:1px solid var(--line)}
+  .areas-list svg{width:19px;height:19px;flex:none;color:var(--whatsapp-deep);margin-top:2px}
+  .areas-cta{text-align:center;margin-top:36px}
+  @media (max-width:700px){ .areas-list{grid-template-columns:1fr} }
+
+  /* dark cta band */
+  .cta-band{background:linear-gradient(160deg,var(--maroon),var(--maroon-deep));color:#fff;text-align:center;position:relative;overflow:hidden}
+  .cta-band .wrap{display:flex;flex-direction:column;align-items:center;gap:18px;max-width:680px}
+  .cta-band h2{font-size:clamp(26px,3.6vw,38px)}
+  .cta-band p{font-size:16px;color:rgba(255,255,255,.82)}
+
+  /* reviews */
+  .reviews{background:var(--surface)}
+  .reviews-head{text-align:center;max-width:640px;margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .google-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cream);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;color:var(--fg)}
+  .google-badge svg{width:18px;height:18px}
+  .reviews-head h2{font-size:clamp(24px,3.4vw,32px)}
+  .reviews-rating{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--fg-muted);margin-bottom:28px;justify-content:center}
+  .reviews-rating .stars{color:#F4B400;display:flex;gap:2px}
+  .reviews-rating .stars svg{width:16px;height:16px}
+  .reviews-rail-wrap{position:relative}
+  .reviews-rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
+  .reviews-rail::-webkit-scrollbar{display:none}
+  .review-card{scroll-snap-align:start;flex:0 0 300px;background:var(--cream);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px}
+  .review-top{display:flex;align-items:center;gap:12px}
+  .review-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex:none}
+  .review-who strong{display:block;font-size:14.5px}
+  .review-who span{display:block;font-size:12px;color:var(--fg-muted)}
+  .review-stars{display:flex;gap:2px;color:#F4B400}
+  .review-stars svg{width:14px;height:14px}
+  .review-time{font-size:12px;color:var(--fg-muted);margin-left:4px}
+  .review-card p{font-size:14px;color:var(--fg);line-height:1.6}
+  .rail-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 10px 24px -12px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--fg)}
+  .rail-btn svg{width:18px;height:18px}
+  .rail-prev{left:-22px}
+  .rail-next{right:-22px}
+  @media (max-width:700px){ .rail-btn{display:none} }
+
+  /* contact */
+  .contact{background:linear-gradient(160deg,var(--gold-bg-1),var(--gold-bg-2));color:var(--ink)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,48px);align-items:start}
+  .contact-col .eyebrow{display:block;margin-bottom:10px;color:#2A1D10}
+  .contact-col h2{font-size:clamp(25px,3.4vw,33px);margin-bottom:12px}
+  .contact-col p.lede{font-size:15.5px;color:rgba(28,18,16,.82);max-width:46ch;margin-bottom:24px}
+  .cta-card{background:var(--cream);border-radius:18px;padding:clamp(22px,3vw,30px);display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+  .cta-card p{font-size:15px;color:var(--fg-muted);max-width:44ch}
+  .map-card{background:#fff;border-radius:18px;overflow:hidden;min-height:340px;position:relative;display:flex;flex-direction:column}
+  .map-pin{position:absolute;top:18px;left:18px;z-index:2;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 12px 26px -10px rgba(0,0,0,.35);max-width:240px}
+  .map-pin strong{display:block;font-size:15px;margin-bottom:4px}
+  .map-pin span{display:block;font-size:12.5px;color:var(--fg-muted);margin-bottom:10px}
+  .map-fallback{flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#EFE7D9,#E2D5BD);min-height:340px}
+  .map-fallback svg{width:46px;height:46px;color:var(--maroon)}
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr} }
+
+  /* footer */
+  footer.site{background:var(--ink);color:rgba(255,255,255,.82);padding-block:48px 36px}
+  .footer-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .footer-grid img.logo{width:auto;height:26px;margin-bottom:14px}
+  .footer-col p,.footer-col a{font-size:13.5px;color:rgba(255,255,255,.62);text-decoration:none;line-height:1.7}
+  .footer-col h4{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:12px;font-family:var(--font-body)}
+  .footer-bottom{padding-top:22px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12.5px;color:rgba(255,255,255,.45)}
+  .footer-disclaimer{font-size:12px;color:rgba(255,255,255,.4);max-width:70ch;margin-top:10px}
+
+  /* floating whatsapp */
+  .fab-whatsapp{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:50;width:60px;height:60px;border-radius:50%;background:var(--whatsapp);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 28px -10px rgba(0,0,0,.4);text-decoration:none}
+  .fab-whatsapp svg{width:30px;height:30px;color:#fff}
+  .fab-whatsapp .pulse{position:absolute;inset:0;border-radius:50%;background:var(--whatsapp);animation:pulse 2.2s ease-out infinite}
+  @media (prefers-reduced-motion:reduce){ .fab-whatsapp .pulse{animation:none;display:none} }
+  @keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+
+  :focus-visible{outline:2px solid var(--gold-line);outline-offset:2px}
+</style>
+<!--GTM_SCRIPT-->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJP4QJ4S');</script>
+<!--/GTM_SCRIPT-->
+<!--GTM_NOSCRIPT-->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJP4QJ4S"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!--/GTM_NOSCRIPT-->
+<!--TINTIM_SCRIPT-->
+<script>
+(function(window, document, script) {
+  if (!window.tt) {
+    window.tt = window.tt || {};
+    c = document.getElementsByTagName('head')[0];
+    k = document.createElement('script');
+    k.async = 1;
+    k.src = script;
+    c.appendChild(k);
+  }
+  window.tt.accountCode = '1625ad01-9972-4c94-a014-a67596e9fb0c';
+})(window, document, '//s.tintim.app/static/core/tintim-1.0.js');
+</script>
+<!--/TINTIM_SCRIPT-->
+
+<header class="site" id="siteHeader">
+  <div class="wrap nav">
+    <img class="logo" src="images/logo.webp" width="878" height="308" alt="Faquetti Advocacia">
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="#inicio">Home</a>
+      <a href="#sobre">Sobre Nós</a>
+      <a href="#atuacao">Áreas de Atuação</a>
+      <a href="#local">Contato</a>
+    </nav>
+    <a class="btn btn-whatsapp btn-sm" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow" style="color:var(--gold-line)">Advogadas</span>
+        <h1>Especialistas em Direito de Família.</h1>
+        <p class="lede">Divórcio, guarda, pensão alimentícia, partilha de bens ou união estável: cada caso começa pela escuta e pela análise dos fatos, com orientação clara e acompanhamento em todas as etapas, em Florianópolis/SC.</p>
+        <div>
+          <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+            Fale Conosco
+          </a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-badge">
+          <strong>Equipe Capacitada</strong>
+          <span>Pronta para te atender</span>
+        </div>
+        <div class="hero-photo">
+          <img src="images/team-cintia.webp" width="425" height="769" alt="Dra. Cintia Faquetti, OAB/SC 26.418">
+          <img src="images/team-natasha.webp" width="425" height="769" alt="Natasha Bortolozzo, OAB/SC 47.110">
+          <img src="images/team-marina.webp" width="426" height="769" alt="Marina Mendes Martins, OAB/SC 40.767">
+          <img src="images/team-audrey.webp" width="425" height="769" alt="Audrey Vanessa de B. Alves, OAB/SC 28.470">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="badges">
+    <div class="wrap">
+      <div class="badge-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-2.5 5 2.5-1.5-8.5"/></svg>
+        <strong>Advogadas Reconhecidas</strong>
+      </div>
+      <div class="badge-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v18M7 6h10M4 10l3-4 3 4-3 3.2L4 10ZM14 10l3-4 3 4-3 3.2-3-3.2ZM6 21h12"/></svg>
+        <strong>15 anos de Experiência e Sucesso</strong>
+      </div>
+      <div class="badge-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V8l8-5 8 5v11M4 19h16M4 19v2h16v-2M9 19v-6h6v6"/></svg>
+        <strong>Excelência e Exclusividade</strong>
+      </div>
+    </div>
+  </div>
+
+  <section id="sobre" class="bio">
+    <div class="wrap bio-grid">
+      <img src="images/firm-bio-office.webp" width="459" height="489" alt="Recepção da Faquetti Advocacia">
+      <div class="bio-copy">
+        <p>A Faquetti Advocacia foi desenvolvida para entregar soluções jurídicas ágeis e personalizadas para você. Com especialistas em direito familiar, empresarial e penal, nosso escritório se destaca pela excelência no atendimento, proporcionando conforto e atenção a cada detalhe.</p>
+        <p>Nossas advogadas altamente qualificadas e comprometidas com a ética e o resultado buscam incansavelmente a solução que se adapta às suas necessidades. A agilidade que você precisa e a especialidade que você merece estão aqui.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="wrap">
+      <div class="values-grid">
+        <div class="value-item">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.3 2.3 4.7-5"/></svg></span>
+          <h4>Sigilo e Ética</h4>
+          <p>Todas as suas informações e particularidades são tratadas com o mais absoluto sigilo.</p>
+        </div>
+        <div class="value-item">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="2.8"/></svg></span>
+          <h4>Transparência</h4>
+          <p>Seu caso é acompanhado de perto, com todos os detalhes esclarecidos com responsabilidade.</p>
+        </div>
+        <div class="value-item">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></span>
+          <h4>Atendimento Ágil</h4>
+          <p>Estamos à disposição para iniciar a discussão do seu caso com uma estratégia personalizada.</p>
+        </div>
+        <div class="value-item">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606M12 21.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19Z"/></svg></span>
+          <h4>Contato</h4>
+          <p>Entre em contato pelo WhatsApp clicando em um dos botões disponíveis no site.</p>
+        </div>
+      </div>
+      <div class="values-cta">
+        <a class="btn btn-dark" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+          Fale Conosco
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="atuacao" class="areas">
+    <div class="wrap">
+      <div class="areas-head">
+        <span class="eyebrow" style="color:var(--gold)">Áreas de Atuação</span>
+        <h2>Direito de Família</h2>
+      </div>
+      <ul class="areas-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Divórcio consensual e litigioso</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Guarda e convivência com os filhos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Pensão alimentícia — fixação, revisão e execução</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Partilha de bens</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Reconhecimento e dissolução de união estável</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Inventário e sucessões</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Lei Maria da Penha e medidas protetivas</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Planejamento sucessório</li>
+      </ul>
+      <div class="areas-cta">
+        <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+          Fale Conosco
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Cuidado e dedicação em cada etapa do seu caso.</h2>
+      <p>Sabemos que decisões sobre a família exigem sensibilidade e atenção aos detalhes. Trabalhamos para que você se sinta ouvida e segura do início ao fim do processo.</p>
+      <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+        Fale Conosco
+      </a>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="wrap">
+      <div class="reviews-head">
+        <span class="google-badge">
+          <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.44.34-2.1V7.06H2.18A11 11 0 0 0 1 12c0 1.77.42 3.45 1.18 4.94z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg>
+          Avaliações Verificadas no Google
+        </span>
+        <h2>Atendimento de Excelência Reconhecido por Nossos Clientes.</h2>
+      </div>
+      <div class="reviews-rating">
+        <strong style="color:var(--fg);font-size:17px">5.0</strong>
+        <span class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg>
+        </span>
+        <span>com base em avaliações reais no Google</span>
+      </div>
+      <div class="reviews-rail-wrap">
+        <button class="rail-btn rail-prev" id="railPrev" aria-label="Avaliação anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="reviews-rail" id="reviewsRail">
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#1E8E3E">V</span><div class="review-who"><strong>Verynha Martins</strong><span>2 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Profissionais com ética e comprometimento, fui super bem atendida, eles tem uma agilidade e eficiência a sua solicitação.... Agradeço e recomendo nota 1.000....</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#8E44AD">B</span><div class="review-who"><strong>Bruno Santos</strong><span>4 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Um ótimo atendimento, me ajudaram muito super indico.</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#E8710A">B</span><div class="review-who"><strong>Bruno Rodrigues</strong><span>5 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Atendimento nota 10, pode confiar, ótimo serviço prestado.</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#0B8043">M</span><div class="review-who"><strong>Marilia Embracon</strong><span>12 avaliações · 2 fotos</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Atendimento excelente, profissionais qualificados e atenciosos, tiraram todas as minhas dúvidas e prestaram um ótimo atendimento.</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#1967D2">F</span><div class="review-who"><strong>Fernando Alexandre</strong><span>1 avaliação</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Estou extremamente agradecido por poder contar com profissionais tão éticos, competentes e dedicados que transmitem confiança e trabalham resultados. Gratidão e sucesso!</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#9334E6">M</span><div class="review-who"><strong>Mateus Mendonça</strong><span>Guia Local · 12 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Excelente atendimento e profissionais competentes. Recomendo!</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#D93025">W</span><div class="review-who"><strong>Wendell Martins</strong><span>2 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Atendimento nota 1.000, indico, obrigado pelo trabalho, sucesso sempre.</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#E8710A">A</span><div class="review-who"><strong>Agnez Lindstron</strong><span>5 avaliações · 3 fotos</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Ótimos profissionais, excelente atendimento. Indico para quem precisar.</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#188038">D</span><div class="review-who"><strong>Denis Antonio Garcia Acosta</strong><span>2 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Atendimento muito bom, prático e rápido... Profissional capacitado e serviço eficiente!</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#8E44AD">D</span><div class="review-who"><strong>Daniela Goulart</strong><span>Guia Local · 27 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Levei minha demanda, me acolheram e me ouviram, e entramos com ação. Ambiente agradável, pessoas com conhecimento amplo e acolhedoras. A advogada se colocou à disposição e sempre responde minhas dúvidas. Super indico, estarão em boas mãos.</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#1E8E3E">E</span><div class="review-who"><strong>Eliane</strong><span>1 avaliação</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Eu recomendarei a todos os meus familiares, amigos e conhecidos. Fico agradecida pelo profissionalismo e experiência que vivenciei, obrigada!</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#1967D2">V</span><div class="review-who"><strong>Vilmar Jose Rodrigues</strong><span>Guia Local · 73 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Ótimos profissionais!!! Muito bem atendido!!!</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#D93025">A</span><div class="review-who"><strong>Andriely Melo Pereira</strong><span>6 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Ótimo atendimento, recomendo muito...</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#0B8043">D</span><div class="review-who"><strong>Davi Pereira</strong><span>2 avaliações</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Muito bom, atendimento excelente e bem organizado. Lugar maravilhoso e bem cuidado. Recomendo!</p>
+          </div>
+          <div class="review-card">
+            <div class="review-top"><span class="review-avatar" style="background:#9334E6">L</span><div class="review-who"><strong>Lucas Burigo</strong><span>Guia Local · 21 avaliações · 4 fotos</span></div></div>
+            <div><span class="review-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1z"/></svg></span><span class="review-time">2 anos atrás</span></div>
+            <p>Atendimento humanizado, sempre estão disponíveis para tirar minhas dúvidas. A assistente passa informações do meu processo sem eu precisar ir atrás.</p>
+          </div>
+        </div>
+        <button class="rail-btn rail-next" id="railNext" aria-label="Próxima avaliação"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="local" class="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-col">
+        <span class="eyebrow">Fale com a advogada</span>
+        <h2>Entre em contato conosco</h2>
+        <p class="lede">Fale direto pelo WhatsApp e conte sua situação com tranquilidade. O atendimento inicial é feito pessoalmente pela Dra. Cintia Faquetti, com total sigilo.</p>
+        <div class="cta-card">
+          <p>Divórcio, guarda, pensão alimentícia, partilha de bens, união estável ou inventário — qualquer que seja o assunto, conte com a gente.</p>
+          <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+            Fale com a Dra. Cintia Faquetti
+          </a>
+        </div>
+      </div>
+      <div class="contact-col">
+        <span class="eyebrow">Onde estamos</span>
+        <h2>Atendimento em Florianópolis</h2>
+        <p class="lede">Nosso escritório fica em Florianópolis - SC. Agende sua conversa pelo WhatsApp ou veja a localização no mapa.</p>
+        <div class="map-card">
+          <div class="map-pin">
+            <strong>Faquetti Advocacia</strong>
+            <span>Florianópolis — SC</span>
+            <a class="btn btn-dark btn-sm" href="https://www.google.com/maps/place/faquetti+advocacia/data=!4m2!3m1!1s0x95273821b16dc4d7:0x25a28210120330b3?sa=X&amp;ved=1t:242&amp;ictx=111" target="_blank" rel="noopener">Ver no Google Maps</a>
+          </div>
+          <div class="map-fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7.5-6.3 7.5-12.5a7.5 7.5 0 1 0-15 0C4.5 15.7 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col" style="max-width:280px">
+        <img class="logo" src="images/logo.webp" width="878" height="308" loading="lazy" decoding="async" alt="Faquetti Advocacia">
+        <p>Escritório de advocacia dedicado ao Direito de Família, com atendimento em Florianópolis - SC.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Equipe</h4>
+        <p>Cintia Faquetti — OAB/SC 26.418</p>
+        <p>Natasha Bortolozzo — OAB/SC 47.110</p>
+        <p>Marina Mendes Martins — OAB/SC 40.767</p>
+        <p>Audrey Vanessa de B. Alves — OAB/SC 28.470</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <p><a href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">Falar no WhatsApp</a></p>
+        <p><a href="https://www.google.com/maps/place/faquetti+advocacia/data=!4m2!3m1!1s0x95273821b16dc4d7:0x25a28210120330b3?sa=X&amp;ved=1t:242&amp;ictx=111" target="_blank" rel="noopener">Florianópolis — SC · ver no mapa</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Faquetti Advocacia. Todos os direitos reservados.</span>
+      <span>OAB/SC</span>
+    </div>
+    <p class="footer-disclaimer">As informações deste site têm caráter meramente informativo e não constituem aconselhamento jurídico individual. Fale conosco pelo WhatsApp para uma análise do seu caso.</p>
+  </div>
+</footer>
+
+<div class="wa-widget" id="waWidget" hidden>
+  <div class="wa-widget-head">
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>Faquetti Advocacia</span>
+    <button type="button" class="wa-widget-close" id="waWidgetClose" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 5l14 14M19 5 5 19"/></svg>
+    </button>
+  </div>
+  <div class="wa-widget-body">
+    <p class="bubble">Precisa de orientação em uma questão de Direito de Família?</p>
+    <p class="bubble">Fale com a Dra. Cintia Faquetti e entenda os próximos passos do seu caso.</p>
+    <p class="bubble strong">Clique no botão abaixo e fale com a advogada.</p>
+    <a class="btn btn-whatsapp" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener">Fale com a Dra. Cintia Faquetti →</a>
+  </div>
+</div>
+
+<a class="fab-whatsapp" id="waFab" href="https://tintim.link/whatsapp/1625ad01-9972-4c94-a014-a67596e9fb0c/a0955eeb-9597-4f03-be36-72e80b597834" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" aria-expanded="false" aria-controls="waWidget">
+  <span class="pulse" aria-hidden="true"></span>
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.943c0 2.105.549 4.16 1.595 5.976L0 24l6.212-1.63a11.908 11.908 0 0 0 5.833 1.5h.005c6.582 0 11.941-5.361 11.943-11.943.001-3.189-1.241-6.19-3.473-8.479zm-8.475 18.334h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.74.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.26c0-5.45 4.436-9.886 9.889-9.886a9.825 9.825 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.896 6.993c-.002 5.45-4.438 9.886-9.889 9.886z"/></svg>
+</a>
+
+<script>
+(function(){
+  var header = document.getElementById('siteHeader');
+  if (header) {
+    var onScroll = function(){
+      if (window.scrollY > 40) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var rail = document.getElementById('reviewsRail');
+  var prev = document.getElementById('railPrev');
+  var next = document.getElementById('railNext');
+  if (rail && prev && next) {
+    var scrollAmount = function(){ return rail.clientWidth * 0.8; };
+    prev.addEventListener('click', function(){ rail.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }); });
+    next.addEventListener('click', function(){ rail.scrollBy({ left: scrollAmount(), behavior: 'smooth' }); });
+  }
+  var widget = document.getElementById('waWidget');
+  var fab = document.getElementById('waFab');
+  var closeBtn = document.getElementById('waWidgetClose');
+  if (widget && fab && closeBtn) {
+    var DISMISS_KEY = 'faquetti_wa_widget_dismissed';
+    var isDismissed = function(){
+      try { return sessionStorage.getItem(DISMISS_KEY) === '1'; } catch (e) { return false; }
+    };
+    var setDismissed = function(){
+      try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+    };
+    var openWidget = function(){
+      widget.hidden = false;
+      fab.setAttribute('aria-expanded', 'true');
+    };
+    var closeWidget = function(){
+      widget.hidden = true;
+      fab.setAttribute('aria-expanded', 'false');
+      setDismissed();
+    };
+    fab.addEventListener('click', function(e){
+      e.preventDefault();
+      if (widget.hidden) openWidget(); else closeWidget();
+    });
+    closeBtn.addEventListener('click', closeWidget);
+    if (!isDismissed()) {
+      setTimeout(openWidget, 1500);
+    }
+  }
+})();
+</script>
